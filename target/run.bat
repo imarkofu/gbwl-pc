@@ -1,0 +1,1 @@
+java -jar gbwl-pc-1.0-executable.jar
