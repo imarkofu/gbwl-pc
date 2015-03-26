@@ -1,0 +1,10 @@
+   .win_bg_layer{ position:fixed; z-index:199; background-color:Black; opacity: .6; filter: alpha(opacity=60);left:0px; top:0px;}
+   .win_show{position:fixed; z-index:299; background:white; line-height:21px; font-size:13px; color:Black;}
+   .win_show a{ cursor:pointer;}
+   .win_show .win_header{width:100%; height:21px; line-height:21px; text-align:right;}
+   .win_show .win_header .close{ margin-right:5px;}
+   .win_show .win_header a.close:hover{ color:Red;}
+   .win_show .win_contxt{width:100%; overflow:hidden;}
+   .win_img_hide{ display:none;}
+   .show_small_img{cursor:pointer;}
+   .show_big_img{}

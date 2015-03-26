@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+
+<beans>
+	<bean id="tieBaListJob" class="me.gbwl.pc.job.TieBaListJob"></bean>
+	
+	<bean id="tieBaListJobTask" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject">
+			<ref bean="tieBaListJob" />
+		</property>
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod">
+			<value>execute</value>
+		</property>
+	</bean>
+	
+	<bean id="tieBaListJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail">
+			<ref bean="tieBaListJobTask" />
+		</property>
+		<!-- cron表达式 -->
+		<property name="cronExpression">
+			<!-- <value>0 * * * * ?</value> -->
+			<value>0/30 * * * * ?</value>
+		</property>
+	</bean>
+	
+	<!-- 定时任务的总开关 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<ref bean="tieBaListJobTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>
