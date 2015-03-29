@@ -9,6 +9,7 @@ import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
 import me.gbwl.pc.model.TbPost;
 import me.gbwl.pc.util.DateUtil;
+import me.gbwl.pc.util.JPushUtil;
 
 import org.apache.log4j.Logger;
 
@@ -70,6 +71,7 @@ public class TieBaDetailPageProcessor implements PageProcessor {
 						tbPost.setpName(pName.get(0));
 						tbPost.setpTitle(title.get(0));
 						ContentHolder.tbPostService.save(tbPost);
+						JPushUtil.getInstance().pushAndroid("来自《" + pName.get(0) + "》贴吧的异常帖子", "帖子标题：" + title.get(0) + "<br />帖子内容：" + content.get(0) + "<br />帖子链接：http://tieba.baidu.com/p/" + pid+"<br />发帖时间：" + cc);
 					} else {
 						logger.info((now.getTime() - date.getTime())+">=" + ContentHolder.constant.getTiebaAgo());
 					}

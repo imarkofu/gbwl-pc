@@ -8,6 +8,7 @@ import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
 import me.gbwl.pc.model.TyPost;
 import me.gbwl.pc.util.DateUtil;
+import me.gbwl.pc.util.JPushUtil;
 
 import org.apache.log4j.Logger;
 
@@ -65,6 +66,7 @@ public class TianYaDetailPageProcessor implements PageProcessor {
 						tyPost.setpReplyTime(d);
 						tyPost.setpTitle(title.get(0));
 						ContentHolder.tyPostService.save(tyPost);
+						JPushUtil.getInstance().pushAndroid("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
 					} else {
 						logger.info((now.getTime() - d.getTime())+">=" + ContentHolder.constant.getTianyaAgo());
 					}
