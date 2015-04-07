@@ -58,7 +58,12 @@ public class TieBaDetailPageProcessor implements PageProcessor {
 				Map<?, ?> map = JSON.parseObject(s, Map.class);
 				Map<?, ?> c = (Map<?, ?>) map.get("content");
 				Date now = new Date();
-				String cc = c.get("date").toString();
+				String cc;
+				try {
+					cc = c.get("date").toString();
+				} catch (Exception e) {
+					cc = page.getHtml().xpath("//span[@class='j_reply_data']/text()").all().get(0);
+				}
 				Date date = DateUtil.parser(cc, "yyyy-MM-dd HH:mm");
 				if (date != null) {
 					if (now.getTime() - date.getTime() <= ContentHolder.constant.getTiebaAgo()) {
