@@ -28,6 +28,7 @@ public class JPushUtil {
 	private JPushClient jpushClient;
 	private JPushUtil() {
 		jpushClient = new JPushClient(ContentHolder.constant.getJpushMasterSecret(), ContentHolder.constant.getJpushAppKey(), 3);
+//		jpushClient = new JPushClient("db69b1f35f054701f430647c", "8c739e85027b11a23b4e2eb6", 3);
 	}
 	
 	private static class Tools {
@@ -40,8 +41,12 @@ public class JPushUtil {
 	
 	public void pushAndroid(String title, String content) {
 		if (ContentHolder.constant.isPush()) {
+//		if (true) {
+			logger.info("push = title=" + title);
 			PushPayload pushPayload = PushPayload.newBuilder().setPlatform(Platform.android())
-					.setAudience(Audience.tag(ContentHolder.constant.getJpushTag()))
+//					.setAudience(Audience.registrationId("010e3e7780e"))
+//					.setAudience(Audience.tag("pc"))
+					.setAudience(Audience.alias(ContentHolder.constant.getJpushAlias()))
 					.setNotification(Notification.android(PlatformNotification.ALERT, title, null))
 					.setMessage(Message.content(content))
 					.build();

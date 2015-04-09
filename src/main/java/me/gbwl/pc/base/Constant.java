@@ -87,8 +87,8 @@ public class Constant {
 	private String jpushMasterSecret;
 	@Value(value = "${jpushAppKey}")
 	private String jpushAppKey;
-	@Value(value = "${jpushTag}")
-	private String jpushTag;
+	@Value(value = "${jpushAlias}")
+	private String jpushAlias;
 	
 
 	public String[] getTiebaURL() {
@@ -242,7 +242,7 @@ public class Constant {
 	public String getJpushAppKey() {
 		return jpushAppKey;
 	}
-	public String getJpushTag() {
-		return jpushTag;
+	public String[] getJpushAlias() {
+		return jpushAlias.split(",");
 	}
 }
