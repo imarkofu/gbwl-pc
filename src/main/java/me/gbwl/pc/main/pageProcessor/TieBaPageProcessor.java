@@ -13,7 +13,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 public class TieBaPageProcessor implements PageProcessor {
 //	private static final Logger logger = Logger.getLogger(TieBaPageProcessor.class);
 
-	private Site site = Site.me().setRetryTimes(3).setSleepTime(500).setTimeOut(30000);
+	private Site site = Site.me().setRetryTimes(3).setSleepTime(500).setTimeOut(60000);
 
 	public void process(Page page) {
 //		String name = page.getHtml().xpath("//title/text()").toString();

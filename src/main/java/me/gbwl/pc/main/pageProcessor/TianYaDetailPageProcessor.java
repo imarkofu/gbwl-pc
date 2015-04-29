@@ -18,7 +18,7 @@ import us.codecraft.webmagic.processor.PageProcessor;
 
 public class TianYaDetailPageProcessor implements PageProcessor {
 	private static final Logger logger = Logger.getLogger(TianYaDetailPageProcessor.class);
-	private Site site = Site.me().setRetryTimes(1).setSleepTime(100).setTimeOut(30000);
+	private Site site = Site.me().setRetryTimes(1).setSleepTime(100).setTimeOut(60000);
 
 	public Site getSite() {
 		return this.site;

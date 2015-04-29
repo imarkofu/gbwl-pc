@@ -23,7 +23,7 @@ public class TieBaDetailPageProcessor implements PageProcessor {
 	private static final Logger logger = Logger
 			.getLogger(TieBaDetailPageProcessor.class);
 
-	private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(30000);
+	private Site site = Site.me().setRetryTimes(3).setSleepTime(1000).setTimeOut(60000);
 
 	public void process(Page page) {
 //		TbPostService tbPostService = ContentHolder.tbPostService;
