@@ -1,5 +1,6 @@
 package me.gbwl.pc.base;
 
+import me.gbwl.pc.service.JLSCService;
 import me.gbwl.pc.service.TbPostService;
 import me.gbwl.pc.service.TyPostService;
 
@@ -11,4 +12,5 @@ public class ContentHolder
   public static Constant constant;
   public static TbPostService tbPostService;
   public static TyPostService tyPostService;
+  public static JLSCService jlscService;
 }

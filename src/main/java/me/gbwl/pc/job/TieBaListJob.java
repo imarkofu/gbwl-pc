@@ -11,5 +11,8 @@ public class TieBaListJob {
 		}
 		if ((ContentHolder.constant.isTianYaRun()) && (!ContentHolder.constant.isTianyaFirst()))
 			SpringUtil.getInstance().addTianYaListUrl(ContentHolder.constant.getTianyaURL());
+		if (ContentHolder.constant.isJLSCRun()) {
+			SpringUtil.getInstance().addJLSCListUrl(ContentHolder.constant.getJLSCURL());
+		}
 	}
 }
