@@ -26,6 +26,7 @@
 			<ul>
 				<li><a style="cursor:pointer;">贴吧管理</a></li>
 				<li><a style="cursor:pointer;">天涯管理</a></li>
+				<li><a style="cursor:pointer;">中央纪委</a></li>
 				<li><a style="cursor:pointer;">控制面板</a></li>
 			</ul>
 		</div>
@@ -46,7 +47,10 @@
 				<li><a onclick="menuClick('${sessionScope.apppath}/ty/preSearch.do', 2)" style="cursor:pointer;text-decoration:none;" >天涯管理</a></li>
 			</ul>
 			<ul class="sub">
-				<li><a onclick="menuClick('${sessionScope.apppath}/controlPanel/preSearch.do', 3)" style="cursor:pointer;text-decoration:none;" >控制面板</a></li>
+				<li><a onclick="menuClick('${sessionScope.apppath}/jlsc/preSearch.do', 3)" style="cursor:pointer;text-decoration:none;" >纪律审查</a></li>
+			</ul>
+			<ul class="sub">
+				<li><a onclick="menuClick('${sessionScope.apppath}/controlPanel/preSearch.do', 4)" style="cursor:pointer;text-decoration:none;" >控制面板</a></li>
 			</ul>
 		</div>
 		<!-- end subnavigation list -->
