@@ -10,7 +10,7 @@
 <body>
 	<jsp:include page="head_nav.jsp"></jsp:include>
 	<div class="clearfix">&nbsp;</div>
-	<div id="main_content_wrap" class="container_16" style="height:300px;">
+	<div id="main_content_wrap" class="container_16" >
 		<!-- start icon dock-->
 		
 	</div>

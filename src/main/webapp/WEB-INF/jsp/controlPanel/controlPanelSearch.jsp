@@ -7,7 +7,7 @@
 <title>控制面板</title>
 </head>
 <body>
-	<div id="main_data" style="height:160px;">
+	<div id="main_data" style="height:395px;">
 		<table id="main_data_table" width="100%" border="1" cellpadding="0" cellspacing="0">
 			<tr>
 				<th width="60%" scope="col">等待爬取的贴吧数</th><td>${requestScope.tiebaSize}</td>
