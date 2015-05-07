@@ -22,10 +22,16 @@
 				<th scope="col">等待爬取的天涯详情页面数</th><td>${requestScope.tianyaDetailSize}</td>
 			</tr>
 			<tr>
+				<th scope="col">等待爬取的中纪委页面数</th><td>${requestScope.jlscSize}</td>
+			</tr>
+			<tr>
 				<th scope="col">重启贴吧</th><td> <input type="button" value="重启" onclick="sendPost('${sessionScope.apppath}/controlPanel/restartTieBa.do')" /> </td>
 			</tr>
 			<tr>
 				<th scope="col">重启天涯</th><td> <input type="button" value="重启" onclick="sendPost('${sessionScope.apppath}/controlPanel/restartTianYa.do')" /> </td>
+			</tr>
+			<tr>
+				<th scope="col">重启中纪委</th><td> <input type="button" value="重启" onclick="sendPost('${sessionScope.apppath}/controlPanel/restartJLSC.do')" /> </td>
 			</tr>
 			<tr>
 				<th scope="col">是否发送异常邮件</th><td>${requestScope.sendEmail==1?"是":"否"}&nbsp;&nbsp;<input type="button" value="改变" onclick="sendPost('${sessionScope.apppath}/controlPanel/changeSendEmail.do')" /></td>
@@ -35,6 +41,7 @@
 			</tr>
 			<tr><th scope="col">清除贴吧历史记录</th><td><input type="button" value="清除" onclick="sendPost('${sessionScope.apppath}/controlPanel/clearTieba.do')" /></td></tr>
 			<tr><th scope="col">清除天涯历史记录</th><td><input type="button" value="清除" onclick="sendPost('${sessionScope.apppath}/controlPanel/clearTianya.do')" /></td></tr>
+			<tr><th scope="col">清除中纪委历史记录</th><td><input type="button" value="清除" onclick="sendPost('${sessionScope.apppath}/controlPanel/clearJLSC.do')" /></td></tr>
 		</table>
 	</div>
 </body>
