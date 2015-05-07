@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.main.listener.JLSCSpiderListener;
 import me.gbwl.pc.main.listener.TianYaDetailSpiderListener;
 import me.gbwl.pc.main.listener.TianYaSpiderListener;
 import me.gbwl.pc.main.listener.TieBaDetailSpiderListener;
 import me.gbwl.pc.main.listener.TieBaSpiderListener;
+import me.gbwl.pc.main.pageProcessor.JLSCPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TianYaDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TianYaPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TieBaDetailPageProcessor;
@@ -29,6 +31,7 @@ public class SpringUtil {
 	private Spider spiderTianYaList = null;
 	private Spider spiderTiebaDetailList = null;
 	private Spider spiderTianYaDetailList = null;
+	private Spider spiderJLSCList = null;
 
 	private SpringUtil() {
 		logger.info("----------------------start init application------------------------------");
@@ -81,6 +84,16 @@ public class SpringUtil {
 				}
 				if (ContentHolder.constant.isTianyaFirst())
 					this.spiderTianYaList.addUrl(ContentHolder.constant.getTianyaURL());
+			}
+			if (ContentHolder.constant.isJLSCRun()) {
+				List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
+				spiderListeners.add(new JLSCSpiderListener());
+				this.spiderJLSCList = Spider.create(new JLSCPageProcessor())
+						.thread(ContentHolder.constant.getJlscThreadCount())
+						.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSC="))
+						.setSpiderListeners(spiderListeners)
+						.addPipeline(new BasePipeline());
+				this.spiderJLSCList.start();
 			}
 		} catch (BeansException e) {
 			logger.info("----------------------init application failure------------------------------");
@@ -161,6 +174,23 @@ public class SpringUtil {
 		}
 		if ((urls != null) && (urls.length > 0))
 			this.spiderTianYaList.addUrl(urls);
+	}
+	private boolean restartJLSC = false;
+	public void addJLSCListUrl(String... urls) {
+		if (!ContentHolder.constant.isJLSCRun() || restartJLSC)
+			return ;
+		if (this.spiderJLSCList == null || this.spiderJLSCList.getStatus() != Status.Running) {
+			List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
+			spiderListeners.add(new JLSCSpiderListener());
+			this.spiderJLSCList = Spider.create(new JLSCPageProcessor())
+					.thread(ContentHolder.constant.getJlscThreadCount())
+					.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSC="))
+					.setSpiderListeners(spiderListeners)
+					.addPipeline(new BasePipeline());
+			this.spiderJLSCList.start();
+		}
+		if (urls != null && urls.length > 0)
+			this.spiderJLSCList.addUrl(urls);
 	}
 	private boolean restartTieba = false;
 	public void restartTieBa() {

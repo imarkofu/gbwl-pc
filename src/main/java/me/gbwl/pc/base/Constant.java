@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import me.gbwl.pc.util.StringUtil;
+
 import org.springframework.beans.factory.annotation.Value;
 
 public class Constant {
@@ -90,6 +92,12 @@ public class Constant {
 	@Value(value = "${jpushAlias}")
 	private String jpushAlias;
 	
+	@Value(value = "${isJLSCRun}")
+	private boolean isJLSCRun;
+	@Value(value = "${jlscURL}")
+	private String jlscURL;
+	@Value(value = "${jlscThreadCount}")
+	private Integer jlscThreadCount;
 
 	public String[] getTiebaURL() {
 		if ((this.tiebaURL == null) || ("".equals(this.tiebaURL.trim())))
@@ -154,6 +162,13 @@ public class Constant {
 			return new String[] { this.tianyaURL };
 		}
 		return this.tianyaURL.split("\\|");
+	}
+	public String[] getJLSCURL() {
+		if (StringUtil.isEmpty(jlscURL) || "".equals(jlscURL.trim()))
+			return new String[0];
+		if (jlscURL.indexOf("|") == -1) 
+			return new String[]{jlscURL};
+		return jlscURL.split("\\|");
 	}
 	public String getOriginalTianyaURL() {
 		return this.tianyaURL;
@@ -244,5 +259,11 @@ public class Constant {
 	}
 	public String[] getJpushAlias() {
 		return jpushAlias.split(",");
+	}
+	public boolean isJLSCRun() {
+		return isJLSCRun;
+	}
+	public Integer getJlscThreadCount() {
+		return jlscThreadCount;
 	}
 }

@@ -49,7 +49,7 @@ public class TieBaDetailPageProcessor implements PageProcessor {
 		List<String> pName = page.getHtml().xpath("//a[@class='card_title_fname']/text()").all();
 		List<String> posts = page.getHtml().xpath("//div[@class='l_post l_post_bright noborder']/@data-field").all();
 		List<String> title = page.getHtml().xpath("//h1[@class='core_title_txt']/@title").all();
-		List<String> content = page.getHtml().xpath("//div[@class='d_post_content j_d_post_content']/text()").all();
+		List<String> content = page.getHtml().xpath("//div[@class='j_d_post_content']/text()").all();
 		if (pName == null || pName.size() <= 0) {pName = new ArrayList<String>();pName.add("未识别");}
 		if (title == null || title.size() <= 0) {title = new ArrayList<String>();title.add("未识别到帖子标题");}
 		if (content == null || content.size() <= 0) {content = new ArrayList<String>();content.add("未识别到帖子内容");}
