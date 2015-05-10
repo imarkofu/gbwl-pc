@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.main.listener.JLSCDetailSpiderListener;
 import me.gbwl.pc.main.listener.JLSCSpiderListener;
 import me.gbwl.pc.main.listener.TianYaDetailSpiderListener;
 import me.gbwl.pc.main.listener.TianYaSpiderListener;
 import me.gbwl.pc.main.listener.TieBaDetailSpiderListener;
 import me.gbwl.pc.main.listener.TieBaSpiderListener;
+import me.gbwl.pc.main.pageProcessor.JLSCDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.JLSCPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TianYaDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TianYaPageProcessor;
@@ -32,6 +34,7 @@ public class SpringUtil {
 	private Spider spiderTiebaDetailList = null;
 	private Spider spiderTianYaDetailList = null;
 	private Spider spiderJLSCList = null;
+	private Spider spiderJLSCDetailList = null;
 
 	private SpringUtil() {
 		logger.info("----------------------start init application------------------------------");
@@ -94,6 +97,13 @@ public class SpringUtil {
 						.setSpiderListeners(spiderListeners)
 						.addPipeline(new BasePipeline());
 				this.spiderJLSCList.start();
+				spiderListeners.clear();
+				spiderListeners.add(new JLSCDetailSpiderListener());
+				this.spiderJLSCDetailList = Spider.create(new JLSCDetailPageProcessor())
+						.thread(ContentHolder.constant.getJlscThreadCount())
+						.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSCDetail="))
+						.setSpiderListeners(spiderListeners)
+						.addPipeline(new BasePipeline());
 			}
 		} catch (BeansException e) {
 			logger.info("----------------------init application failure------------------------------");
@@ -191,6 +201,22 @@ public class SpringUtil {
 		}
 		if (urls != null && urls.length > 0)
 			this.spiderJLSCList.addUrl(urls);
+	}
+	public void addJLSCDetailListUrl(String... urls) {
+		if (!ContentHolder.constant.isJLSCRun() || restartJLSC)
+			return ;
+		if (this.spiderJLSCDetailList == null || this.spiderJLSCDetailList.getStatus() != Status.Running) {
+			List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
+			spiderListeners.add(new JLSCDetailSpiderListener());
+			this.spiderJLSCDetailList = Spider.create(new JLSCDetailPageProcessor())
+					.thread(ContentHolder.constant.getJlscThreadCount())
+					.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSCDetail="))
+					.setSpiderListeners(spiderListeners)
+					.addPipeline(new BasePipeline());
+		}
+		if (urls != null && urls.length > 0) {
+			this.spiderJLSCDetailList.addUrl(urls);
+		}
 	}
 	private boolean restartTieba = false;
 	public void restartTieBa() {

@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.model.JLSC;
+import me.gbwl.pc.util.SpringUtil;
 
 import org.apache.log4j.Logger;
 
@@ -28,11 +29,12 @@ public class JLSCPageProcessor implements PageProcessor {
 				jlsc.setpId(href);
 				jlsc = ContentHolder.jlscService.searchOne(jlsc);
 				if (jlsc == null) {
-					jlsc = new JLSC();
-					jlsc.setpId(href);
-					jlsc.setpTitle(lines_content.get(i));
-					jlsc.setpFrom("纪律审查");
-					ContentHolder.jlscService.save(jlsc);
+//					jlsc = new JLSC();
+//					jlsc.setpId(href);
+//					jlsc.setpTitle(lines_content.get(i));
+//					jlsc.setpFrom("纪律审查");
+//					ContentHolder.jlscService.save(jlsc);
+					SpringUtil.getInstance().addJLSCDetailListUrl(href);
 				}
 			}
 		} catch (Exception e) {
