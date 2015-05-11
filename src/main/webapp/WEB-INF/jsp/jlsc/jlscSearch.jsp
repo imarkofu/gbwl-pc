@@ -46,7 +46,8 @@ function searchInit(action) {
         			'<tr><th width="2%" scope="col">'+
         			'<input type="checkbox" name="ids" id="ids" onclick="checkAllOrNot()" class="checkall" /><label for="checkbox"></label></th>' + 
         			'<th width="4%" scope="col">序号</th>' + 
-        			'<th width="60%" scope="col">标题</th>' + 
+        			'<th width="40%" scope="col">标题</th>' + 
+        			'<th width="20%" scope="col">发布时间</th>' + 
         			'<th width="7%" scope="col">来源</th></tr>');
         	//插入数据部分 
         	var tmp = '';
@@ -57,7 +58,8 @@ function searchInit(action) {
         		tmp += ('<tr><td scope="col">'+
         				'<input type="checkbox" name="keyIds" id="keyIds" value="'+row.id+'" /></td>'+
         				'<td scope="col">'+row.id+'</td>'+
-        				'<td scope="col"><a href="'+row.pId+'" target="_blank" title="'+row.pTitle+'">'+(row.pTitle)+'</a></td>' +
+        				'<td scope="col"><a href="'+row.pId+'" target="_blank" title="'+row.pTitle+'">'+(row.pTitle)+'</a></td>' +        				
+        				'<td scope="col">'+(row.pDate)+'</td>' +
         				'<td scope="col">'+(row.pFrom)+'</td>' +
         				'</tr>');
         	}

@@ -13,6 +13,7 @@ public class JLSC {
 	private Integer id;
 	private String	pId;
 	private String	pTitle;
+	private String	pDate;
 	private String	pFrom;
 	
 	@Id
@@ -35,6 +36,12 @@ public class JLSC {
 	public void setpTitle(String pTitle) {
 		this.pTitle = pTitle;
 	}
+	public String getpDate() {
+		return pDate;
+	}
+	public void setpDate(String pDate) {
+		this.pDate = pDate;
+	}
 	public String getpFrom() {
 		return pFrom;
 	}
@@ -43,7 +50,10 @@ public class JLSC {
 	}
 	@Override
 	public String toString() {
-		return "JLSC [id=" + id + ", pId=" + pId + ", pTitle=" + pTitle
-				+ ", pFrom=" + pFrom + "]";
+		StringBuilder builder = new StringBuilder();
+		builder.append("JLSC [id=").append(id).append(", pId=").append(pId)
+				.append(", pTitle=").append(pTitle).append(", pDate=")
+				.append(pDate).append(", pFrom=").append(pFrom).append("]");
+		return builder.toString();
 	}
 }

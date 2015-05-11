@@ -68,6 +68,7 @@ public class TianYaDetailPageProcessor implements PageProcessor {
 						tyPost.setpTitle(title.get(0));
 						ContentHolder.tyPostService.save(tyPost);
 						JPushUtil.getInstance().pushAndroid("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
+						MailSender.getInstance().send("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
 					} else {
 						logger.info((now.getTime() - d.getTime())+">=" + ContentHolder.constant.getTianyaAgo());
 					}
