@@ -336,7 +336,8 @@ public class SpringUtil {
 	public int getJLSCSize() {
 		try {
 			MyScheduler myScheduler = (MyScheduler) this.spiderJLSCList.getScheduler();
-			return myScheduler.size();
+			MyScheduler myScheduler1 = (MyScheduler) this.spiderJLSCDetailList.getScheduler();
+			return myScheduler.size()+myScheduler1.size();
 		} catch (Exception e) {
 			return 0;
 		}
