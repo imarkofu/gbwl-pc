@@ -98,8 +98,9 @@ public class HttpClientDownloader extends AbstractDownloader {
                 return page;
             } else {
                 logger.warn("code error " + statusCode + "\t" + request.getUrl());
-                Page page = new Page();
+                Page page = handleResponse(request, charset, httpResponse, task);
                 page.setStatusCode(statusCode);
+                page.setRequest(request);
                 return page;
 //                return null;
             }

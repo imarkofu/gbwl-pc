@@ -41,9 +41,7 @@ public class MailSender {
 				Map<String, String> result = mail.send();
 				logger.info("发送邮件" + result);
 			} catch (Exception e) {
-				logger.info("发送邮件发生异常：content=" + content + ";Exception="
-						+ e.getMessage());
-				e.printStackTrace();
+				logger.error("发送邮件发生异常：content=" + content + ";Exception=" + e.getMessage(), e.getCause());
 			}
 		} else {
 			logger.info("邮件未发送:"+content);

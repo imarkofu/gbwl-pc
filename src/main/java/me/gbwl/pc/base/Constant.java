@@ -98,6 +98,12 @@ public class Constant {
 	private String jlscURL;
 	@Value(value = "${jlscThreadCount}")
 	private Integer jlscThreadCount;
+	@Value(value = "${mainJlscThreadCount}")
+	private Integer mainJlscThreadCount;
+	@Value(value = "${mainJlscDetailThreadCount}")
+	private Integer mainJlscDetailThreadCount;
+	@Value(value = "${mainJlscURL}")
+	private String	mainJlscURL;
 
 	public String[] getTiebaURL() {
 		if ((this.tiebaURL == null) || ("".equals(this.tiebaURL.trim())))
@@ -169,6 +175,13 @@ public class Constant {
 		if (jlscURL.indexOf("|") == -1) 
 			return new String[]{jlscURL};
 		return jlscURL.split("\\|");
+	}
+	public String[] getMainJlscURL() {
+		if (StringUtil.isEmpty(mainJlscURL) || "".equals(mainJlscURL.trim()))
+			return new String[0];
+		if (mainJlscURL.indexOf("|") == -1)
+			return new String[]{mainJlscURL};
+		return mainJlscURL.split("\\|");
 	}
 	public String getOriginalTianyaURL() {
 		return this.tianyaURL;
@@ -265,5 +278,11 @@ public class Constant {
 	}
 	public Integer getJlscThreadCount() {
 		return jlscThreadCount;
+	}
+	public Integer getMainJlscThreadCount() {
+		return mainJlscThreadCount;
+	}
+	public Integer getMainJlscDetailThreadCount() {
+		return mainJlscDetailThreadCount;
 	}
 }
