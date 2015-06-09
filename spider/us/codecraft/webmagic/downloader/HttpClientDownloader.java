@@ -208,7 +208,10 @@ public class HttpClientDownloader extends AbstractDownloader {
         // charset
         // 1、encoding in http header Content-Type
         String value = httpResponse.getEntity().getContentType().getValue();
-        charset = UrlUtils.getCharset(value);
+        if (value.indexOf(",") != -1)
+        	charset = UrlUtils.getCharset(value.substring(0, value.indexOf(",")));
+        else 
+        	charset = UrlUtils.getCharset(value);
         if (StringUtils.isNotBlank(charset)) {
             logger.debug("Auto get charset: {}", charset);
             return charset;

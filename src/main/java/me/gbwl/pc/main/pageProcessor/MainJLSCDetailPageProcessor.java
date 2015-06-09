@@ -22,11 +22,11 @@ public class MainJLSCDetailPageProcessor implements PageProcessor {
 			.setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
 	@Override
 	public void process(Page page) {
-//		Date now = new Date();
-//		String today = DateUtil.formatDate(now, "yyyy-MM-dd");
-//		String today1 = DateUtil.formatDate(new Date(), "yyyy-M-d");
-		String today = "2015-04-23";
-		String today1 = "2015-4-23";
+		Date now = new Date();
+		String today = DateUtil.formatDate(now, "yyyy-MM-dd");
+		String today1 = DateUtil.formatDate(now, "yyyy-M-d");
+		today = "2015-06-05";
+		today1 = "2015-6-5";
 		if (page.getRequest().getUrl().indexOf("www.zjsjw.gov.cn/news/detail.asp") != -1) {
 			String title = page.getHtml().xpath("//b/text()").all().get(0);
 			String d = page.getHtml().xpath("//tr[@class='ee']/td[4]/text()").all().get(0);
@@ -44,6 +44,24 @@ public class MainJLSCDetailPageProcessor implements PageProcessor {
 					ContentHolder.jlscService.save(jlsc);
 					JPushUtil.getInstance().pushAndroid("来自《浙江纪律审查》的异常帖子", "帖子标题："+ title + "<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + today);
 					MailSender.getInstance().send("来自《浙江纪律审查》的异常帖子", "帖子标题："+ title + "<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + today);
+				}
+			}
+		} else if (page.getRequest().getUrl().indexOf("www.hnlzw.net/page.php") != -1) {
+			String title = page.getHtml().xpath("//div[@id='arttitl']/text()").all().get(0);
+			String date = page.getHtml().xpath("//div[@id='artdes']/text()").all().get(0);
+			if (date.indexOf(today) != -1) {
+				JLSC jlsc = new JLSC();
+				jlsc.setpId(page.getRequest().getUrl());
+				jlsc = ContentHolder.jlscService.searchOne(jlsc);
+				if (jlsc == null) {
+					jlsc = new JLSC();
+					jlsc.setpDate(today);
+					jlsc.setpFrom("海南纪律审查");
+					jlsc.setpId(page.getRequest().getUrl());
+					jlsc.setpTitle(title);
+					ContentHolder.jlscService.save(jlsc);
+					JPushUtil.getInstance().pushAndroid("来自《海南纪律审查》的异常帖子", "帖子标题："+ title + "<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + today);
+					MailSender.getInstance().send("来自《海南纪律审查》的异常帖子", "帖子标题："+ title + "<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + today);
 				}
 			}
 		}
