@@ -25,8 +25,6 @@ public class MainJLSCDetailPageProcessor implements PageProcessor {
 		Date now = new Date();
 		String today = DateUtil.formatDate(now, "yyyy-MM-dd");
 		String today1 = DateUtil.formatDate(now, "yyyy-M-d");
-		today = "2015-06-05";
-		today1 = "2015-6-5";
 		if (page.getRequest().getUrl().indexOf("www.zjsjw.gov.cn/news/detail.asp") != -1) {
 			String title = page.getHtml().xpath("//b/text()").all().get(0);
 			String d = page.getHtml().xpath("//tr[@class='ee']/td[4]/text()").all().get(0);

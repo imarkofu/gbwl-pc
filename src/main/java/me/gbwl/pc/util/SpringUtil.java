@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.downloader.MyHttpClientDownloader;
 import me.gbwl.pc.main.listener.JLSCDetailSpiderListener;
 import me.gbwl.pc.main.listener.JLSCSpiderListener;
 import me.gbwl.pc.main.listener.MainJLSCDetailSpiderListener;
@@ -100,7 +101,7 @@ public class SpringUtil {
 				this.spiderJLSCList = Spider.create(new JLSCPageProcessor())
 						.thread(ContentHolder.constant.getJlscThreadCount())
 						.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSC="))
-						.setSpiderListeners(spiderListeners)
+						.setSpiderListeners(spiderListeners).setDownloader(new MyHttpClientDownloader())
 						.addPipeline(new BasePipeline());
 				this.spiderJLSCList.start();
 				spiderListeners.clear();
@@ -108,7 +109,7 @@ public class SpringUtil {
 				this.spiderJLSCDetailList = Spider.create(new JLSCDetailPageProcessor())
 						.thread(ContentHolder.constant.getJlscThreadCount())
 						.setExitWhenComplete(false).setScheduler(new MyScheduler("JLSCDetail="))
-						.setSpiderListeners(spiderListeners)
+						.setSpiderListeners(spiderListeners).setDownloader(new MyHttpClientDownloader())
 						.addPipeline(new BasePipeline());
 				this.spiderJLSCDetailList.start();
 				spiderListeners.clear();
@@ -121,12 +122,12 @@ public class SpringUtil {
 				this.spiderMainJLSCList.start();
 				spiderListeners.clear();
 				spiderListeners.add(new MainJLSCDetailSpiderListener());
-				this.spiderJLSCDetailList = Spider.create(new MainJLSCDetailPageProcessor())
+				this.spiderMainJLSCDetailList = Spider.create(new MainJLSCDetailPageProcessor())
 						.thread(ContentHolder.constant.getMainJlscDetailThreadCount())
 						.setExitWhenComplete(false).setScheduler(new MyScheduler("MainJLSCDetail="))
 						.setSpiderListeners(spiderListeners)
 						.addPipeline(new BasePipeline());
-				this.spiderJLSCDetailList.start();
+				this.spiderMainJLSCDetailList.start();
 				
 			}
 		} catch (BeansException e) {

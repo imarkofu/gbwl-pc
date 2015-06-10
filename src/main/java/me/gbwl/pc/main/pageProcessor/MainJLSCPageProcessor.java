@@ -28,10 +28,6 @@ public class MainJLSCPageProcessor implements PageProcessor {
 		String today1 = DateUtil.formatDate(now, "yyyy/MM/dd");
 		String today2 = DateUtil.formatDate(now, "yyyy年MM月dd日");
 		String today3 = DateUtil.formatDate(now, "yyyyMMdd");
-		today = "2015-06-05";
-		today1 = "2015/06/05";
-		today2 = "2015年06月05日";
-		today3 = "20150504";
 		if (page.getRequest().getUrl().indexOf("www.shjcw.gov.cn/2015jjw/n2233/index.html") != -1) {
 			List<String> titles = page.getHtml().xpath("//ul[@class='newslist']/li/a/@title").all();
 			List<String> urls = page.getHtml().xpath("//ul[@class='newslist']/li/a/@href").all();
