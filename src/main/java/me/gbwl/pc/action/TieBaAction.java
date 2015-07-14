@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="/tb")
+@RequestMapping(value="/tieba")
 public class TieBaAction extends BaseAction<TbPost, Integer> {
 
 	private TbPostService tbPostService;

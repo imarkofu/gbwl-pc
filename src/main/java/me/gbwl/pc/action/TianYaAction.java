@@ -11,7 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value="/ty")
+@RequestMapping(value="/tianya")
 public class TianYaAction extends BaseAction<TyPost, Integer> {
 
 	private TyPostService tyPostService;

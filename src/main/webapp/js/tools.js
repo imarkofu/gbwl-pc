@@ -121,3 +121,37 @@ function setAbledFormElement(fid, flag){
 		 $("#"+fid).attr("disabled",true); 
 	}
 }
+
+function sendPost(action, title) {
+	$.messager.confirm('提示',title,function(result){
+		if (result) {
+			$.ajax({
+				type: "post",
+				dataType: "json",
+		        url: action,
+		        data:{},
+		        contentType: 'application/x-www-form-urlencoded; charset=utf-8',
+		        success:function(data) {
+		        	if (data!=undefined) {
+		        		$.messager.show({
+		            		title:'提示信息：',
+		            		msg:data.msg,
+		            		timeout:3000,
+		            		showType:'slide'
+		        		});
+		        		if (data.result==true) {
+		        			$('#dg').datagrid('reload');
+		        		}
+		        	} else {
+		        		$.messager.show({
+		            		title:'提示信息：',
+		            		msg:'网络异常',
+		            		timeout:3000,
+		            		showType:'slide'
+		        		});
+		        	}
+		        }
+			});
+		}
+	});
+}
