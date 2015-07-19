@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,6 +14,24 @@
 </head>
 <body>
 	<table id="dg"></table>
+
+	<div id="editObj" style="display: none;">
+		<form id="editForm" method="post">
+			<table width="100%" style="padding: 3px">
+				<tbody>
+					<tr>
+						<td width="60px">关键词</td>
+						<td><input type="text" name="keywords" value="" /></td>
+					</tr>
+				</tbody>
+			</table>
+			<table border="0" width="100%" id="formOperate">
+				<tr>
+					<td align="center"><input type="button" id="editSubmit" value="确定" /><input type="reset" /></td>
+				</tr>
+			</table>
+		</form>
+	</div>
 </body>
 <script type="text/javascript">
 $(function(){
@@ -42,8 +60,8 @@ function searchInit(action) {
 			{field:'id',title:'ID',sortable:true,
 				formatter:function(value,row,index){return row.id;} 
 			},
-			{field:'keyword',title:'关键词',sortable:false,
-				formatter:function(value,row,index){return row.keyword;} 
+			{field:'keywords',title:'关键词',sortable:true,
+				formatter:function(value,row,index){return row.keywords;} 
 			},
 			{field:'Confirmation',title:'操作',width:100,sortable:false,
 				formatter:function(value,row,index){
@@ -74,25 +92,19 @@ function searchInit(action) {
 				text:'添加',
 				iconCls:'icon-add',
 				handler:function(){
-					
+					newObj("添加贴吧关键词","${sessionScope.apppath}/tianyaKeyword/save.do", 300, 200);
 				}
 			},{
 				text:'删除',
 				iconCls:'icon-remove',
 				handler:function(){
-					
-				}
-			},{
-				text:'重新加载',
-				iconCls:'icon-reload',
-				handler:function(){
-					
+					removeObj("${sessionScope.apppath}/tianyaKeyword/delete.do");
 				}
 			},{
 				text:'清空数据',
 				iconCls:'icon-clear',
 				handler:function(){
-					sendPost('${sessionScope.apppath}/tianyaKeyword/clearTianyaKeyword.do', '您确定要清空天涯的关键词数据吗？');
+					sendPost('${sessionScope.apppath}/tianyaKeyword/clearTiebaKeyword.do', '您确定要清空天涯的关键词数据吗？');
 				}
 			}
 		]

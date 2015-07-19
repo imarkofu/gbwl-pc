@@ -67,61 +67,113 @@ function submitPage(action, pageCount) {
 	submitPage1(action, page);
 }
 
-function newObj(title, action, url, width, height) {
-	if (width == undefined || width == '') {
-		width = 400;
+function newObj(title, action, width, height) {
+	if(width==undefined||width==''){
+		width=500;
 	}
-	if (height == undefined || height == '') {
-		height = 200;
+	if(height==undefined||height==''){
+		height=350;
 	}
-	$("#editObj").show();
-	$('#editObj').prop("title", '添加'+title);
-	var dialog = $("#editObj").dialog({
-			autoOpen : false,
-			height : height,
-			width : width,
-			modal : false,
-			resizable : false,
-			buttons : {
-				"确定" : function() {
-					if ($.isFunction(window.validation)) {
-						var rs = validation($('#editForm'));
-						if (rs == undefined || rs == false) {
-							return;
-						}
-					}
-					// ajax提交
-					$.ajax({
-						type : "post",
-						dataType : "json",
-						url : action,
-						data : $('#editForm').serializeArray(),
-						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-						success : function(data) {
-							if (data != undefined && data.result == true) {
-								dialog.dialog("close");
-								show_my_messager("添加" + title, "添加成功");
-								searchInit(url);
-							} else {
-								returnError(data);
-							}
-						}
-					});
-				},
-				"取消" : function() {
-					dialog.dialog("close");
-				}
-			},
-			close : function() {
-				$(this).dialog("destroy");
-				$(this).hide();
-			}
-		}).dialog("open");
+	$('#editObj').show();
+	$("#editObj").dialog({
+		title:'添加'+name,
+		top:100,
+		width:width,
+		height:height,
+		cache: false,
+		closed: true,
+	});
 	$('#editForm')[0].reset();
 	if ($.isFunction(window.newInitCombobox))
-		newInitCombobox($('#editForm'), "");
-	//dialog.dialog("open");	//解决在初始化时出现问题，不能关闭dialog的问题
+		newInitCombobox($('#editForm'),"");
+	$("#editSubmit").unbind();
+	$("#editSubmit").click(function(){
+		if ($.isFunction(window.validation)){
+			var rs=validation($('#editForm'));
+			if(rs==undefined||rs==false){
+				return ;
+			}
+		}
+		$.ajax({
+            type: "post",
+            dataType: "json",
+            url: action,
+            data: $('#editForm').serializeArray(),
+            contentType: 'application/x-www-form-urlencoded; charset=utf-8', 
+            success: function(data){
+            	if(data!=undefined&&data.result==true){
+            		$('#editObj').dialog('close');
+            		$('#dg').datagrid('reload');
+            		$.messager.show({
+            			title:'添加'+name,
+            			msg:'添加成功！',
+            			timeout:5000,
+            			showType:'slide'
+            		});
+            	}else{
+            		returnError(data);
+            	}
+            }
+		});
+	});
+	$('#editObj').dialog('open');
 }
+
+//function newObj(title, action, width, height) {
+//	if (width == undefined || width == '') {
+//		width = 400;
+//	}
+//	if (height == undefined || height == '') {
+//		height = 200;
+//	}
+//	$("#editObj").show();
+//	$('#editObj').prop("title", '添加'+title);
+//	var dialog = $("#editObj").dialog({
+//			autoOpen : false,
+//			height : height,
+//			width : width,
+//			modal : false,
+//			resizable : false,
+//			buttons : {
+//				"确定" : function() {
+//					if ($.isFunction(window.validation)) {
+//						var rs = validation($('#editForm'));
+//						if (rs == undefined || rs == false) {
+//							return;
+//						}
+//					}
+//					// ajax提交
+//					$.ajax({
+//						type : "post",
+//						dataType : "json",
+//						url : action,
+//						data : $('#editForm').serializeArray(),
+//						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+//						success : function(data) {
+//							if (data != undefined && data.result == true) {
+//								dialog.dialog("close");
+//								show_my_messager("添加" + title, "添加成功");
+//								searchInit(url);
+//							} else {
+//								returnError(data);
+//							}
+//						}
+//					});
+//				},
+//				"取消" : function() {
+//					dialog.dialog("close");
+//				}
+//			},
+//			close : function() {
+//				$(this).dialog("destroy");
+//				$(this).hide();
+//			}
+//		}).dialog("open");
+//	$('#editForm')[0].reset();
+//	if ($.isFunction(window.newInitCombobox))
+//		newInitCombobox($('#editForm'), "");
+//	//dialog.dialog("open");	//解决在初始化时出现问题，不能关闭dialog的问题
+//}
 
 function editObj(title, viewAction, updateAction, url, width, height) {
 	if (width == undefined || width == '') {
@@ -203,62 +255,109 @@ function editObj(title, viewAction, updateAction, url, width, height) {
 	});
 }
 
-function removeObj(title, action, url, append) {
-	var count = 0;
-	var id = "";
-	$('input[name="keyIds"]:checked').each(function(i, d) {
-		count++;
-		if (i == 0)
-			id = ("?id=" + $(this).val());
-		else
-			id += ("&id=" + $(this).val());
-	});
-	if (count <= 0) {
-		show_my_messager("提示", "未选择需要删除的项");
-		return;
-	}
-	$("#delObj").show();
-	if (append == undefined || append == '')
-		$("#delObj").prop("title", "删除" + title + "提示").html("您确定要删除" + title + "的" + count + "项信息吗？");
-	else 
-		$("#delObj").prop("title", "删除" + title + "提示").html("您确定要删除" + title + "的" + count + "项信息吗？"+append);
-	var dialog = $("#delObj").dialog({
-		resizable : false,
-		height : 150,
-		modal : true,
-		buttons : {
-			"确定" : function() {
-				$.post(action + id, function(data) {
-					if (data != undefined && data.result == true) {
-						dialog.dialog("close");
-						show_my_messager("删除" + title, count + "项删除成功");
-						// searchInit(url, page, rows, sort, order);
-						searchInit(url);
-					} else {
-						returnError(data);
-					}
-				});
-			},
-			"取消" : function() {
-				$(this).dialog("close");
-			}
-		},
-		close : function() {
-			$(this).dialog("destroy");
-			$(this).hide();
-		}
+function removeObj(action){
+	var rows = $('#dg').datagrid('getSelections');
+	var size=0;
+    $.each(rows,function(i,n){
+    	size++;
+    });
+    if(size<=0){
+    	$.messager.alert('提示','未选择所需删除的项！','info');
+    	return;
+    }
+	$.messager.confirm('提示','确定要删除 '+size+' 项信息吗?',function(result){
+		if (result){
+	        var ps = "";
+	        $.each(rows,function(i,n){
+	        	if(i==0) 
+	        		ps += "?id="+n.id;
+	        	else
+	        		ps += "&id="+n.id;
+	        });
+	        $.post(action+ps,function(data){
+	        	if(data!=undefined&&data.result==true){
+			       	$('#dg').datagrid('reload'); 
+	        		$.messager.show({
+	            		title:'提示信息：',
+	            		msg:size+' 项信息删除成功！',
+	            		timeout:5000,
+	            		showType:'slide'
+	        		});
+	        	}else{
+	        		returnError(data);
+	        	}
+	        });
+	    }
 	});
 }
 
-function returnError(data) {
-	if (data != undefined && data.value != undefined && data.value == 'nologin') {
+//function removeObj(title, action, url, append) {
+//	var count = 0;
+//	var id = "";
+//	$('input[name="keyIds"]:checked').each(function(i, d) {
+//		count++;
+//		if (i == 0)
+//			id = ("?id=" + $(this).val());
+//		else
+//			id += ("&id=" + $(this).val());
+//	});
+//	if (count <= 0) {
+//		show_my_messager("提示", "未选择需要删除的项");
+//		return;
+//	}
+//	$("#delObj").show();
+//	if (append == undefined || append == '')
+//		$("#delObj").prop("title", "删除" + title + "提示").html("您确定要删除" + title + "的" + count + "项信息吗？");
+//	else 
+//		$("#delObj").prop("title", "删除" + title + "提示").html("您确定要删除" + title + "的" + count + "项信息吗？"+append);
+//	var dialog = $("#delObj").dialog({
+//		resizable : false,
+//		height : 150,
+//		modal : true,
+//		buttons : {
+//			"确定" : function() {
+//				$.post(action + id, function(data) {
+//					if (data != undefined && data.result == true) {
+//						dialog.dialog("close");
+//						show_my_messager("删除" + title, count + "项删除成功");
+//						// searchInit(url, page, rows, sort, order);
+//						searchInit(url);
+//					} else {
+//						returnError(data);
+//					}
+//				});
+//			},
+//			"取消" : function() {
+//				$(this).dialog("close");
+//			}
+//		},
+//		close : function() {
+//			$(this).dialog("destroy");
+//			$(this).hide();
+//		}
+//	});
+//}
+
+function returnError(data){
+	if(data!=undefined&&data.value!=undefined&&data.value=='nologin'){
 		window.location.reload();
-	} else if (data == undefined || data.msg == undefined) {
-		show_my_messager('提示', '未知错误！');
-	} else {
-		show_my_messager('提示', data.msg);
+	}else{
+		if(data==undefined||data.msg==undefined)
+			$.messager.alert('提示','未知错误！','info');
+		else
+			$.messager.alert('提示',data.msg,'info');
 	}
 }
+
+//function returnError(data) {
+//	if (data != undefined && data.value != undefined && data.value == 'nologin') {
+//		window.location.reload();
+//	} else if (data == undefined || data.msg == undefined) {
+//		show_my_messager('提示', '未知错误！');
+//	} else {
+//		show_my_messager('提示', data.msg);
+//	}
+//}
 
 function rechargeCheck(amount) {
 	if (amount == '')

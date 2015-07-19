@@ -7,11 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tieba_keyrowd")
+@Table(name="tieba_keyword")
 public class TiebaKeyword {
 
 	private Integer id;
-	private String	keyword;
+	private String	keywords;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {
@@ -20,17 +20,17 @@ public class TiebaKeyword {
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	public String getKeyword() {
-		return keyword;
+	public String getKeywords() {
+		return keywords;
 	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
+	public void setKeywords(String keywords) {
+		this.keywords = keywords;
 	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("TiebaKeyword [id=").append(id).append(", keyword=")
-				.append(keyword).append("]");
+		builder.append("TiebaKeyword [id=").append(id).append(", keywords=")
+				.append(keywords).append("]");
 		return builder.toString();
 	}
 }
