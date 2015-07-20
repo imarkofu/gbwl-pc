@@ -96,7 +96,7 @@ function searchInit(action) {
 				text:'添加',
 				iconCls:'icon-add',
 				handler:function(){
-					newObj("添加贴吧关键词","${sessionScope.apppath}/tiebaKeyword/save.do", 300, 200);
+					newObj("添加贴吧关键词","${sessionScope.apppath}/tiebaKeyword/save.do", 300, 100);
 				}
 			},{
 				text:'删除',
