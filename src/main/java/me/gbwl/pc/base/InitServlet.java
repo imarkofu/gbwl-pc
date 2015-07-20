@@ -6,6 +6,8 @@ import javax.servlet.http.HttpServlet;
 
 import me.gbwl.pc.service.JLSCService;
 import me.gbwl.pc.service.TbPostService;
+import me.gbwl.pc.service.TianyaKeywordService;
+import me.gbwl.pc.service.TiebaKeywordService;
 import me.gbwl.pc.service.TyPostService;
 import me.gbwl.pc.util.BlackKeyHelper;
 import me.gbwl.pc.util.SpringUtil;
@@ -27,6 +29,8 @@ public class InitServlet extends HttpServlet
     ContentHolder.tbPostService = (TbPostService)ContentHolder.context.getBean("tbPostService", TbPostService.class);
     ContentHolder.tyPostService = (TyPostService)ContentHolder.context.getBean("tyPostService", TyPostService.class);
     ContentHolder.jlscService = ContentHolder.context.getBean("jlscService", JLSCService.class);
+    ContentHolder.tiebaKeywordService = ContentHolder.context.getBean("tiebaKeywordService", TiebaKeywordService.class);
+    ContentHolder.tianyaKeywordService = ContentHolder.context.getBean("tianyaKeywordService", TianyaKeywordService.class);
     BlackKeyHelper.loadBlackKey();
     SpringUtil.getInstance();
     logger.info("--------------init servlet end-------------");

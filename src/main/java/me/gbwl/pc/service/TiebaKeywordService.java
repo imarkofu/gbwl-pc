@@ -1,6 +1,7 @@
 package me.gbwl.pc.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -22,5 +23,11 @@ public class TiebaKeywordService extends BaseService<TiebaKeyword, Integer> {
 	
 	public void delAll() {
 		tiebaKeywordDao.del("delete from tieba_keyword", new ArrayList<Object>());
+	}
+	
+	public int getCount() {
+		String sql = "select count(id) from tieba_keyword";
+		List<Object> params = new ArrayList<Object>();
+		return tiebaKeywordDao.getInt(sql, params);
 	}
 }
