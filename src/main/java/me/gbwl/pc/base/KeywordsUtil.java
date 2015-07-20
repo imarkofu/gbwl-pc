@@ -1,5 +1,6 @@
 package me.gbwl.pc.base;
 
+import java.net.URLEncoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,15 +12,15 @@ public class KeywordsUtil {
 
 	private int tiebaKeywordsCount = 0;
 	private int tianyaKeywordCount = 0;
-	private Set<String> tiebaKeywords = null;
+	private String[] tiebaKeywords = null;
 	private Set<String> tianyaKeywords = null;
 	
 	
-	public Set<String> getTiebaKeywords() {
-		if (ContentHolder.tiebaKeywordService.getCount() != tiebaKeywordsCount || tiebaKeywords == null) {
+	public String[] getTiebaUrls() {
+		if (ContentHolder.tiebaKeywordService.getCount() != tiebaKeywordsCount || this.tiebaKeywords == null) {
 			init();
 		}
-		return tiebaKeywords;
+		return this.tiebaKeywords;
 	}
 	
 	public Set<String> getTianyaKeywords() {
@@ -30,13 +31,18 @@ public class KeywordsUtil {
 	}
 	
 	private synchronized void init() {
-		if (ContentHolder.tiebaKeywordService.getCount() != tiebaKeywordsCount || tiebaKeywords == null) {
-			tiebaKeywords = new HashSet<String>();
+		if (ContentHolder.tiebaKeywordService.getCount() != tiebaKeywordsCount || this.tiebaKeywords == null) {
+			Set<String> tiebaKeywords = new HashSet<String>();
 			List<TiebaKeyword> list = ContentHolder.tiebaKeywordService.getAll();
 			if (list != null && list.size() > 0) {
 				for (TiebaKeyword tk : list) {
-					tiebaKeywords.add(tk.getKeywords());
+					try {
+						tiebaKeywords.add("http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=myKeywords&un=&rn=10&pn=0&sd=&ed=&ie=gbk&sm=1&only_thread=1".replace("myKeywords", URLEncoder.encode(tk.getKeywords(), "UTF-8")));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
+				this.tiebaKeywords = tiebaKeywords.toArray(new String[0]);
 				tiebaKeywordsCount = list.size();
 			}
 		}

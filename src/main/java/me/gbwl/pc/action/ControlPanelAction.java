@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.main.TiebaMain;
 import me.gbwl.pc.util.SpringUtil;
 
 import org.apache.log4j.Logger;
@@ -31,8 +32,8 @@ public class ControlPanelAction {
 	@RequestMapping(value="/preSearch.do", method=RequestMethod.GET)
 	public ModelAndView preSearch(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("controlPanel/controlPanelSearch");
-		mav.addObject("tiebaSize", SpringUtil.getInstance().getTieBaSize());
-		mav.addObject("tiebaDetailSize", SpringUtil.getInstance().getTieBaDetailSize());
+		mav.addObject("tiebaSize", TiebaMain.getInstance().tiebaTaskSize());
+//		mav.addObject("tiebaDetailSize", SpringUtil.getInstance().getTieBaDetailSize());
 		mav.addObject("tianyaSize", SpringUtil.getInstance().getTianYaSize());
 		mav.addObject("tianyaDetailSize", SpringUtil.getInstance().getTianYaDetailSize());
 		mav.addObject("jlscSize", SpringUtil.getInstance().getJLSCSize());
@@ -104,7 +105,7 @@ public class ControlPanelAction {
 	public Map<String, Object> restartTieBa(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			SpringUtil.getInstance().restartTieBa();
+			TiebaMain.getInstance().stop();
 			result.put("result", true);result.put("msg", "重启成功");
 		} catch (Exception e) {
 			logger.error("重启贴吧异常：" + e.getMessage(), e.getCause());

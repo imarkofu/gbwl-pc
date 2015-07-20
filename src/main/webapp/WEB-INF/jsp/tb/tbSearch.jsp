@@ -40,7 +40,7 @@ function searchInit(action) {
 		columns:[[
 			{field:'ck',checkbox:true,width:2},
 			{field:'pTitle',title:'标题',sortable:false,
-				formatter:function(value,row,index){return '<a href="http://tieba.baidu.com/p/'+row.pId+'" target="_black">'+row.pTitle+'</a>';} 
+				formatter:function(value,row,index){return '<a href="'+row.pId+'" target="_black">'+row.pTitle+'</a>';} 
 			},
 			{field:'pContent',title:'内容',sortable:false,
 				formatter:function(value,row,index){return ((row.pContent==null||row.pContent.length<=32)?row.pContent:(row.pContent.substring(0,32)+"..."));} 

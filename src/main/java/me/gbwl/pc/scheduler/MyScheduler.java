@@ -1,9 +1,9 @@
 package me.gbwl.pc.scheduler;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import me.gbwl.pc.util.DefaultSync;
 import me.gbwl.pc.util.Sync;
@@ -26,7 +26,7 @@ public class MyScheduler extends DuplicateRemovedScheduler {
 		this.name = name;
 	}
 	Sync mapSync = new DefaultSync();
-	Map<Request, Task> map = new LinkedHashMap<Request, Task>();
+	Map<Request, Task> map = new ConcurrentHashMap<Request, Task>();
 
 	public Request poll(Task task) {
 		try {
@@ -56,7 +56,7 @@ public class MyScheduler extends DuplicateRemovedScheduler {
 	protected void pushWhenNoDuplicate(Request request, Task task) {
 		try {
 			mapSync.acquire();
-			if (map == null) map = new LinkedHashMap<Request, Task>();
+			if (map == null) map = new ConcurrentHashMap <Request, Task>();
 			if (map.size() > 1000) map.clear();
 			this.map.put(request, task);
 		} catch (Exception e) {
@@ -69,7 +69,7 @@ public class MyScheduler extends DuplicateRemovedScheduler {
 	public int size() {
 		try {
 			mapSync.acquire();
-			if (map == null) map = new LinkedHashMap<Request, Task>();
+			if (map == null) map = new ConcurrentHashMap <Request, Task>();
 			return this.map.size();
 		} catch (Exception e) {
 			e.printStackTrace();
