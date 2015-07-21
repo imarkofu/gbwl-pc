@@ -48,67 +48,12 @@ public class TieBaPageProcessor implements PageProcessor {
 							tbPost.setpTitle(titles.get(i));
 							ContentHolder.tbPostService.save(tbPost);
 						}
-					} else {
-						logger.info(now.getTime() - DateUtil.parser(dates.get(i), "yyyy-MM-dd HH:mm").getTime() - TiebaMain.getInstance().getTiebaMillisAgo());
 					}
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e.getCause());
 				}
 			}
 		}
-//		List<String> topicURLs = page.getHtml().xpath("//ul[@id='thread_topic']/li/div/div/div/a[@id='topic_post_title']/@href").all();
-//		List<String> topicTitles = page.getHtml().xpath("//ul[@id='thread_topic']/li/div/div/div/a[@id='topic_post_title']/@title").all();
-//		for (int i = 0; i < topicURLs.size(); i++) {
-//			String topicURL = (String) topicURLs.get(i);
-//			String pid = topicURL.substring(topicURL.lastIndexOf("/") + 1, topicURL.length());
-//			String title = (String) topicTitles.get(i);
-//
-//				if (BlackKeyHelper.isBlack(title)) {
-//					TbPost tp = new TbPost();
-//					tp.setpId(pid);
-//					tp = ContentHolder.tbPostService.searchOne(tp);
-//					if (tp == null) {
-//						//爬取详情页面
-//						if (ContentHolder.constant.isTieBaDetailRun())
-//							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
-//					}
-//				}
-//		}
-//		List<String> topURLs = page.getHtml().xpath("//ul[@id='thread_list']/li/ul[@id='thread_top_list']/li/div/div/div/div/a[@class='j_th_tit']/@href").all();
-//		List<String> topTitles = page.getHtml().xpath("//ul[@id='thread_list']/li/ul[@id='thread_top_list']/li/div/div/div/div/a[@class='j_th_tit']/@title").all();
-//		for (int i = 0; i < topURLs.size(); i++) {
-//			String topURL = (String) topURLs.get(i);
-//			String pid = topURL.substring(topURL.lastIndexOf("/") + 1, topURL.length());
-//			String title = (String) topTitles.get(i);
-//				if (BlackKeyHelper.isBlack(title)) {
-//					TbPost tp = new TbPost();
-//					tp.setpId(pid);
-//					tp = (TbPost) ContentHolder.tbPostService.searchOne(tp);
-//					if (tp == null) {
-//						//爬取详情页面
-//						if (ContentHolder.constant.isTieBaDetailRun())
-//							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
-//					}
-//				}
-//		}
-//
-//		List<String> listTitles = page.getHtml().xpath("//ul[@id='thread_list']/li[@class='j_thread_list']/div/div/div/div/a[@class='j_th_tit']/@title").all();
-//		List<String> listURLs = page.getHtml().xpath("//ul[@id='thread_list']/li[@class='j_thread_list']/div/div/div/div/a[@class='j_th_tit']/@href").all();
-//		for (int i = 0; i < listURLs.size(); i++) {
-//			String listURL = (String) listURLs.get(i);
-//			String pid = listURL.substring(listURL.lastIndexOf("/") + 1, listURL.length());
-//			String title = (String) listTitles.get(i);
-//			if (BlackKeyHelper.isBlack(title)) {
-//				TbPost tp = new TbPost();
-//				tp.setpId(pid);
-//				tp = (TbPost) ContentHolder.tbPostService.searchOne(tp);
-//				if (tp ==  null) {
-//					//爬详情页面
-//					if (ContentHolder.constant.isTieBaDetailRun())
-//						SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
-//				}
-//			}
-//		}
 	}
 
 	public Site getSite() {

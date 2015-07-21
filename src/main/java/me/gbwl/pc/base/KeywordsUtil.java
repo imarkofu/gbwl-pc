@@ -1,9 +1,7 @@
 package me.gbwl.pc.base;
 
 import java.net.URLEncoder;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import me.gbwl.pc.model.Keywords;
 
@@ -12,8 +10,8 @@ public class KeywordsUtil {
 	private int tiebaKeywordsCount = 0;
 	private int tianyaKeywordCount = 0;
 	private String[] tiebaUrls = null;
-	private Set<String> tiebaKeywords = null;
-	private Set<String> tianyaKeywords = null;
+	private String[] tiebaKeywords = null;
+	private String[] tianyaKeywords = null;
 	
 	
 	public String[] getTiebaUrls() {
@@ -23,53 +21,81 @@ public class KeywordsUtil {
 		return this.tiebaUrls;
 	}
 	
-	public Set<String> getTiebaKeywords() {
+	public boolean isTiebaKeywords(String content) {
 		if (ContentHolder.keywordsService.getCount(Keywords.TYPE_TIEBA) != tiebaKeywordsCount || this.tiebaKeywords == null) {
 			init();
 		}
-		return this.tiebaKeywords;
+		if (tiebaKeywords != null && tiebaKeywords.length > 0) {
+			for (String k : tiebaKeywords) {
+				if (content.indexOf(k) != -1) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
-	public Set<String> getTianyaKeywords() {
+	public boolean getTianyaKeywords(String content) {
 		if (ContentHolder.keywordsService.getCount(Keywords.TYPE_TIANYA) != tianyaKeywordCount || tianyaKeywords == null) {
 			init();
 		}
-		return tianyaKeywords;
+		if (tianyaKeywords != null && tianyaKeywords.length > 0) {
+			for (String k : tianyaKeywords) {
+				if (content.indexOf(k) != -1) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	private synchronized void init() {
 		if (ContentHolder.keywordsService.getCount(Keywords.TYPE_TIEBA) != tiebaKeywordsCount || this.tiebaUrls == null || this.tiebaKeywords == null) {
-			Set<String> tiebaKeywords = new HashSet<String>();
+			
 			List<Keywords> list = ContentHolder.keywordsService.getAll(Keywords.TYPE_TIEBA);
 			if (list != null && list.size() > 0) {
+				String[] tiebaKeywords = new String[list.size()];
+				int i = 0;
 				for (Keywords tk : list) {
 					try {
-						tiebaKeywords.add(tk.getKeywords());
-//						tiebaKeywords.add();
+						tiebaKeywords[i++] =tk.getKeywords();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
 				this.tiebaKeywords = tiebaKeywords;
-				this.tiebaUrls = new String[tiebaKeywords.size()];
-				int i = 0;
+				this.tiebaUrls = new String[tiebaKeywords.length];
+				i = 0;
 				for (String k : tiebaKeywords) {
 					try {
 						this.tiebaUrls[i++] = "http://tieba.baidu.com/f/search/res?isnew=1&kw=&qw=myKeywords&un=&rn=10&pn=0&sd=&ed=&ie=gbk&sm=1&only_thread=1".replace("myKeywords", URLEncoder.encode(k, "UTF-8"));
 					} catch (Exception e) { }
 				}
 				tiebaKeywordsCount = list.size();
+			} else {
+				tiebaKeywords = new String[0];
+				tiebaUrls = new String[0];
+				tiebaKeywordsCount = 0;
 			}
 		}
 		
 		if (ContentHolder.keywordsService.getCount(Keywords.TYPE_TIANYA) != tianyaKeywordCount || tianyaKeywords == null) {
-			tianyaKeywords = new HashSet<String>();
 			List<Keywords> list = ContentHolder.keywordsService.getAll(Keywords.TYPE_TIANYA);
 			if (list != null && list.size() > 0) {
+				String[] keywords = new String[list.size()];
+				int i = 0;
 				for (Keywords tk : list) {
-					tianyaKeywords.add(tk.getKeywords());
+					try {
+						keywords[i++] =tk.getKeywords();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
+				tianyaKeywords = keywords;
 				tianyaKeywordCount = list.size();
+			} else {
+				tianyaKeywords = new String[0];
+				tianyaKeywordCount = 0;
 			}
 		}
 	}

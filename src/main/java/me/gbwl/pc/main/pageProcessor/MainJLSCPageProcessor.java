@@ -9,16 +9,13 @@ import me.gbwl.pc.model.JLSC;
 import me.gbwl.pc.util.DateUtil;
 import me.gbwl.pc.util.JPushUtil;
 import me.gbwl.pc.util.SpringUtil;
-
-import org.apache.log4j.Logger;
-
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 public class MainJLSCPageProcessor implements PageProcessor {
 
-	private static final Logger logger = Logger.getLogger(MainJLSCPageProcessor.class);
+//	private static final Logger logger = Logger.getLogger(MainJLSCPageProcessor.class);
 	private Site site =  Site.me().setRetryTimes(1).setSleepTime(100).setTimeOut(30000)
 			.setUserAgent("Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2272.118 Safari/537.36");
 	@Override
