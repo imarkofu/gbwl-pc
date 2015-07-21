@@ -1,7 +1,5 @@
 var isDelete_map={"0":"未删除","1":"已删除"};
-var user_status_map={"0":"暂停","1":"正常"};
-var user_type_map={"1":"超级管理员","2":"管理员","3":"物流人员"};
-
+var keywords_type_map={"1":"贴吧关键词", "2":"天涯关键词"}
 
 function getSelectList(map, selectedId) {
 	var s = "";

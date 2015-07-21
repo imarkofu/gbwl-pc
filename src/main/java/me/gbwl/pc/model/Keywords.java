@@ -7,11 +7,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="tieba_keyword")
-public class TiebaKeyword {
+@Table(name="keywords")
+public class Keywords {
 
 	private Integer id;
 	private String	keywords;
+	private Integer type;
+	
+	public final static Integer TYPE_TIEBA	= 1;
+	public final static Integer TYPE_TIANYA	= 2;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {
@@ -26,11 +30,17 @@ public class TiebaKeyword {
 	public void setKeywords(String keywords) {
 		this.keywords = keywords;
 	}
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("TiebaKeyword [id=").append(id).append(", keywords=")
-				.append(keywords).append("]");
+		builder.append("Keywords [id=").append(id).append(", keywords=")
+				.append(keywords).append(", type=").append(type).append("]");
 		return builder.toString();
 	}
 }

@@ -5,14 +5,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title></title>
-<link rel="stylesheet" type="text/css"
-	href="${sessionScope.apppath}/css/themes/default/easyui.css">
-<link rel="stylesheet" type="text/css"
-	href="${sessionScope.apppath}/css/themes/icon.css">
-<script type="text/javascript"
-	src="${sessionScope.apppath}/js/jquery.min.js"></script>
-<script type="text/javascript"
-	src="${sessionScope.apppath}/js/jquery.easyui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="${sessionScope.apppath}/css/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css" href="${sessionScope.apppath}/css/themes/icon.css">
+<script type="text/javascript" src="${sessionScope.apppath}/js/jquery.min.js"></script>
+<script type="text/javascript" src="${sessionScope.apppath}/js/jquery.easyui.min.js"></script>
 <script type="text/javascript" src="${sessionScope.apppath}/js/index.js"></script>
 <script type="text/javascript" src="${sessionScope.apppath}/js/tools.js"></script>
 </head>
@@ -27,6 +23,10 @@
 						<td width="60px">关键词</td>
 						<td><input type="text" name="keywords" value="" /></td>
 					</tr>
+					<tr>
+						<td>分类</td>
+						<td><select id="type" name="type"></select> </td>
+					</tr>
 				</tbody>
 			</table>
 			<table border="0" width="100%" id="formOperate">
@@ -39,7 +39,7 @@
 </body>
 <script type="text/javascript">
 $(function(){
-	searchInit("${sessionScope.apppath}/tiebaKeyword/search.do");
+	searchInit("${sessionScope.apppath}/tianyaKeyword/search.do");
 });
 function searchInit(action) {
 	$("#dg").datagrid({
@@ -66,6 +66,9 @@ function searchInit(action) {
 			},
 			{field:'keywords',title:'关键词',sortable:true,
 				formatter:function(value,row,index){return row.keywords;} 
+			},
+			{field:'type',title:'分类',sortable:true,
+				formatter:function(value,row,index){return keywords_type_map[row.type];} 
 			},
 			{field:'Confirmation',title:'操作',width:100,sortable:false,
 				formatter:function(value,row,index){
@@ -96,23 +99,22 @@ function searchInit(action) {
 				text:'添加',
 				iconCls:'icon-add',
 				handler:function(){
-					newObj("添加贴吧关键词","${sessionScope.apppath}/tiebaKeyword/save.do", 300, 100);
+					newObj("添加关键词","${sessionScope.apppath}/keywords/save.do", 300, 150);
 				}
 			},{
 				text:'删除',
 				iconCls:'icon-remove',
 				handler:function(){
-					removeObj("${sessionScope.apppath}/tiebaKeyword/delete.do");
-				}
-			},{
-				text:'清空数据',
-				iconCls:'icon-clear',
-				handler:function(){
-					sendPost('${sessionScope.apppath}/tiebaKeyword/clearTiebaKeyword.do', '您确定要清空贴吧的关键词数据吗？');
+					removeObj("${sessionScope.apppath}/keywords/delete.do");
 				}
 			}
 		]
 	});
+}
+
+function newInitCombobox(obj, data) {
+	obj.find("#type").html("<option value='' selected>请选择</option>");
+	obj.find("#type").append(getSelectList(keywords_type_map,data.menu));
 }
 </script>
 </html>

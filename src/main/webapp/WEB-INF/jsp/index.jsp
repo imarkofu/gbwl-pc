@@ -52,10 +52,7 @@
 			</div>
 			<div title="系统管理" style="overflow:hidden;">
 				<div class="menuStyle">
-					<a href="javascript:void(0);" onclick="addTabs('贴吧关键词', '${sessionScope.apppath}/tiebaKeyword/preSearch.do')">贴吧关键词</a>
-				</div>
-				<div class="menuStyle">
-					<a href="javascript:void(0);" onclick="addTabs('天涯关键词', '${sessionScope.apppath}/tianyaKeyword/preSearch.do')">天涯关键词</a>
+					<a href="javascript:void(0);" onclick="addTabs('关键词管理', '${sessionScope.apppath}/keywords/preSearch.do')">关键词管理</a>
 				</div>
 				<div class="menuStyle">
 					<a href="javascript:void(0);" onclick="addTabs('系统配置', '${sessionScope.apppath}/sysConsole/preSearch.do')">系统配置</a>
