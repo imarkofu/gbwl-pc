@@ -8,6 +8,7 @@ import me.gbwl.pc.service.JLSCService;
 import me.gbwl.pc.service.KeywordsService;
 import me.gbwl.pc.service.TbPostService;
 import me.gbwl.pc.service.TyPostService;
+import me.gbwl.pc.service.UrlsService;
 import me.gbwl.pc.util.BlackKeyHelper;
 import me.gbwl.pc.util.SpringUtil;
 
@@ -29,7 +30,7 @@ public class InitServlet extends HttpServlet
     ContentHolder.tyPostService = (TyPostService)ContentHolder.context.getBean("tyPostService", TyPostService.class);
     ContentHolder.jlscService = ContentHolder.context.getBean("jlscService", JLSCService.class);
     ContentHolder.keywordsService = ContentHolder.context.getBean("keywordsService", KeywordsService.class);
-    		
+    ContentHolder.urlsService = ContentHolder.context.getBean("urlsService", UrlsService.class);
     BlackKeyHelper.loadBlackKey();
     SpringUtil.getInstance();
     logger.info("--------------init servlet end-------------");

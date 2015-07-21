@@ -32,6 +32,7 @@ public class UrlsAction extends BaseAction<Urls, Integer> {
 		Map<String, Object> result = new HashMap<String, Object>();
 		String url = request.getParameter("url");
 		String type = request.getParameter("type");
+		String name = request.getParameter("name");
 		if (StringUtil.isEmpty(url)) {
 			result.put("result", false);
 			result.put("msg", "URL不能为空");
@@ -42,6 +43,11 @@ public class UrlsAction extends BaseAction<Urls, Integer> {
 			result.put("msg", "分类不能为空");
 			return result;
 		}
+		if (StringUtil.isEmpty(name)) {
+			result.put("result", false);
+			result.put("msg", "名称不能为空");
+			return result;
+		}
 		url = url.trim();
 		Urls tk = new Urls();
 		tk.setUrl(url);
@@ -50,6 +56,7 @@ public class UrlsAction extends BaseAction<Urls, Integer> {
 			tk = new Urls();
 			tk.setUrl(url);
 			tk.setType(Integer.parseInt(type));
+			tk.setName(name);
 			urlsService.save(tk);
 			result.put("result", true);
 			result.put("msg", "存储成功");

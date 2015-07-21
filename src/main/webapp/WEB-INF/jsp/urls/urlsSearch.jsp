@@ -18,6 +18,7 @@
 	<div id="tb" style="padding:5px;height:auto">
 		<form id="searchForm">
 		   	<div>
+				名称:<input type="text" name="search.LIKES_name" value=""/>
 				URL:<input type="text" name="search.LIKES_url" value=""/>
 				分类:<select id="search_type" name="search.EQS_type"></select>
 				<input type="button" onclick="search();" value="查询"/><input type="reset" value="清空"/>
@@ -29,6 +30,10 @@
 		<form id="editForm" method="post">
 			<table width="100%" style="padding: 3px">
 				<tbody>
+					<tr>
+						<td width="60px">名称</td>
+						<td><input type="text" name="name" value="" /></td>
+					</tr>
 					<tr>
 						<td width="60px">URL</td>
 						<td><input type="text" name="url" value="" /></td>
@@ -77,6 +82,9 @@ function searchInit(action) {
 			{field:'id',title:'ID',sortable:true,
 				formatter:function(value,row,index){return row.id;} 
 			},
+			{field:'name',title:'名称',sortable:true,
+				formatter:function(value,row,index){return row.name;} 
+			},
 			{field:'url',title:'URL',sortable:true,
 				formatter:function(value,row,index){return row.url;} 
 			},
@@ -112,7 +120,7 @@ function searchInit(action) {
 				text:'添加',
 				iconCls:'icon-add',
 				handler:function(){
-					newObj("添加URL","${sessionScope.apppath}/urls/save.do", 300, 150);
+					newObj("添加URL","${sessionScope.apppath}/urls/save.do", 300, 200);
 				}
 			},{
 				text:'删除',
