@@ -7,8 +7,8 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import me.gbwl.pc.base.Result;
-import me.gbwl.pc.model.Keywords;
-import me.gbwl.pc.service.KeywordsService;
+import me.gbwl.pc.model.Urls;
+import me.gbwl.pc.service.UrlsService;
 import me.gbwl.pc.util.StringUtil;
 
 import org.springframework.stereotype.Controller;
@@ -17,24 +17,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(value="/keywords")
-public class KeywordsAction extends BaseAction<Keywords, Integer> {
+@RequestMapping(value="/urls")
+public class UrlsAction extends BaseAction<Urls, Integer> {
 
-	private KeywordsService keywordsService;
-	@Resource(name="keywordsService")
-	public void setKeywordsService(KeywordsService keywordsService) {
-		this.keywordsService = keywordsService;
-		this.setBaseService(keywordsService, "keywords");
+	private UrlsService urlsService;
+	@Resource(name="urlsService")
+	public void setUrlsService(UrlsService urlsService) {
+		this.urlsService = urlsService;
+		this.setBaseService(urlsService, "urls");
 	}
 	
 	@Override
 	public Map<String, Object> save(HttpServletRequest request) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		String keywords = request.getParameter("keywords");
+		String url = request.getParameter("url");
 		String type = request.getParameter("type");
-		if (StringUtil.isEmpty(keywords)) {
+		if (StringUtil.isEmpty(url)) {
 			result.put("result", false);
-			result.put("msg", "关键词不能为空");
+			result.put("msg", "URL不能为空");
 			return result;
 		}
 		if (!StringUtil.isNumeric(type)) {
@@ -42,15 +42,15 @@ public class KeywordsAction extends BaseAction<Keywords, Integer> {
 			result.put("msg", "分类不能为空");
 			return result;
 		}
-		keywords = keywords.trim();
-		Keywords tk = new Keywords();
-		tk.setKeywords(keywords);
+		url = url.trim();
+		Urls tk = new Urls();
+		tk.setUrl(url);
 		tk.setType(Integer.parseInt(type));
-		if (null ==keywordsService.searchOne(tk)) {
-			tk = new Keywords();
-			tk.setKeywords(keywords);
+		if (null ==urlsService.searchOne(tk)) {
+			tk = new Urls();
+			tk.setUrl(url);
 			tk.setType(Integer.parseInt(type));
-			keywordsService.save(tk);
+			urlsService.save(tk);
 			result.put("result", true);
 			result.put("msg", "存储成功");
 			return result;
@@ -71,19 +71,19 @@ public class KeywordsAction extends BaseAction<Keywords, Integer> {
 			result.put("msg", "类型不能为空");
 			return result;
 		}
-		keywordsService.delByType(Integer.parseInt(type));
+		urlsService.delByType(Integer.parseInt(type));
 		result.put("result", true);
 		result.put("msg", "清除成功");
 		return result;
 	}
 	
 	@Override
-	protected Result validate(Keywords form, HttpServletRequest request) {
+	protected Result validate(Urls form, HttpServletRequest request) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 	@Override
-	protected Keywords getNewObject() {
+	protected Urls getNewObject() {
 		// TODO Auto-generated method stub
 		return null;
 	}

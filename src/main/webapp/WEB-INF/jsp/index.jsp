@@ -55,6 +55,9 @@
 					<a href="javascript:void(0);" onclick="addTabs('关键词管理', '${sessionScope.apppath}/keywords/preSearch.do')">关键词管理</a>
 				</div>
 				<div class="menuStyle">
+					<a href="javascript:void(0);" onclick="addTabs('URL管理', '${sessionScope.apppath}/urls/preSearch.do')">URL管理</a>
+				</div>
+				<div class="menuStyle">
 					<a href="javascript:void(0);" onclick="addTabs('系统配置', '${sessionScope.apppath}/sysConsole/preSearch.do')">系统配置</a>
 				</div>
 			</div>

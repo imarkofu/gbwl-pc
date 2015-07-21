@@ -1,5 +1,6 @@
 var isDelete_map={"0":"未删除","1":"已删除"};
 var keywords_type_map={"1":"贴吧关键词", "2":"天涯关键词"}
+var urls_type_map={"1":"贴吧URL", "2":"天涯URL"}
 
 function getSelectList(map, selectedId) {
 	var s = "";
@@ -335,6 +336,18 @@ function removeObj(action){
 //		}
 //	});
 //}
+
+function search(){
+	if($('#searchTotal')!=undefined){
+		$('#searchTotal').val('');
+	}
+    var params = $('#dg').datagrid('options').queryParams;
+    var fields =$('#searchForm').serializeArray();
+    $.each( fields, function(i, field){  
+        params[field.name] = field.value;
+    });   
+    $('#dg').datagrid('reload');
+}
 
 function returnError(data){
 	if(data!=undefined&&data.value!=undefined&&data.value=='nologin'){

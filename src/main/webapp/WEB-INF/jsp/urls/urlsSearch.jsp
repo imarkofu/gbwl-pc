@@ -18,7 +18,7 @@
 	<div id="tb" style="padding:5px;height:auto">
 		<form id="searchForm">
 		   	<div>
-				关键词:<input type="text" name="search.LIKES_keywords" value=""/>
+				URL:<input type="text" name="search.LIKES_url" value=""/>
 				分类:<select id="search_type" name="search.EQS_type"></select>
 				<input type="button" onclick="search();" value="查询"/><input type="reset" value="清空"/>
 			</div>
@@ -30,8 +30,8 @@
 			<table width="100%" style="padding: 3px">
 				<tbody>
 					<tr>
-						<td width="60px">关键词</td>
-						<td><input type="text" name="keywords" value="" /></td>
+						<td width="60px">URL</td>
+						<td><input type="text" name="url" value="" /></td>
 					</tr>
 					<tr>
 						<td>分类</td>
@@ -49,9 +49,9 @@
 </body>
 <script type="text/javascript">
 $(function(){
-	searchInit("${sessionScope.apppath}/keywords/search.do");
+	searchInit("${sessionScope.apppath}/urls/search.do");
 	$("#search_type").html("<option value='' selected>请选择</option>");
-	$("#search_type").append(getSelectList(keywords_type_map,""));
+	$("#search_type").append(getSelectList(urls_type_map,""));
 });
 function searchInit(action) {
 	$("#dg").datagrid({
@@ -77,11 +77,11 @@ function searchInit(action) {
 			{field:'id',title:'ID',sortable:true,
 				formatter:function(value,row,index){return row.id;} 
 			},
-			{field:'keywords',title:'关键词',sortable:true,
-				formatter:function(value,row,index){return row.keywords;} 
+			{field:'url',title:'URL',sortable:true,
+				formatter:function(value,row,index){return row.url;} 
 			},
 			{field:'type',title:'分类',sortable:true,
-				formatter:function(value,row,index){return keywords_type_map[row.type];} 
+				formatter:function(value,row,index){return urls_type_map[row.type];} 
 			},
 			{field:'Confirmation',title:'操作',width:100,sortable:false,
 				formatter:function(value,row,index){
@@ -112,13 +112,13 @@ function searchInit(action) {
 				text:'添加',
 				iconCls:'icon-add',
 				handler:function(){
-					newObj("添加关键词","${sessionScope.apppath}/keywords/save.do", 300, 150);
+					newObj("添加URL","${sessionScope.apppath}/urls/save.do", 300, 150);
 				}
 			},{
 				text:'删除',
 				iconCls:'icon-remove',
 				handler:function(){
-					removeObj("${sessionScope.apppath}/keywords/delete.do");
+					removeObj("${sessionScope.apppath}/urls/delete.do");
 				}
 			}
 		]
@@ -127,7 +127,7 @@ function searchInit(action) {
 
 function newInitCombobox(obj, data) {
 	obj.find("#type").html("<option value='' selected>请选择</option>");
-	obj.find("#type").append(getSelectList(keywords_type_map,data.menu));
+	obj.find("#type").append(getSelectList(urls_type_map,data.menu));
 }
 </script>
 </html>
