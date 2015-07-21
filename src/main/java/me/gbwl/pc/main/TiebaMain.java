@@ -12,9 +12,10 @@ import us.codecraft.webmagic.SpiderListener;
 
 public class TiebaMain {
 
-	private boolean tiebaRun = false;
+	private boolean tiebaRun = true;
 	private int tiebaThreadCount = 5;
 	private Spider spiderTiebaList = null;
+	private long tiebaMillisAgo = 240000;
 	
 	private TiebaMain() {
 		init();
@@ -65,6 +66,12 @@ public class TiebaMain {
 	}
 	public void setTiebaThreadCount(int tiebaThreadCount) {
 		this.tiebaThreadCount = tiebaThreadCount;
+	}
+	public long getTiebaMillisAgo() {
+		return tiebaMillisAgo;
+	}
+	public void setTiebaMillisAgo(long tiebaMillisAgo) {
+		this.tiebaMillisAgo = tiebaMillisAgo;
 	}
 
 	private static class Tools {

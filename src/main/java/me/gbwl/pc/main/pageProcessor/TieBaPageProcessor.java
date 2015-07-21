@@ -5,6 +5,7 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
+import me.gbwl.pc.main.TiebaMain;
 import me.gbwl.pc.model.TbPost;
 import me.gbwl.pc.util.DateUtil;
 
@@ -32,18 +33,23 @@ public class TieBaPageProcessor implements PageProcessor {
 		if (dates != null && dates.size() > 0) {
 			for (int i = 0; i < dates.size(); i ++) {
 				try {
-					if (now.getTime() - DateUtil.parser(dates.get(i), "yyyy-MM-dd HH:mm").getTime() <= 120000l) {
-						MailSender.getInstance().send("来自《" + froms.get(i) + "》贴吧的异常邮件", "帖子标题：" + titles.get(i) + "<br />帖子内容：" + contents.get(i) + "<br />帖子链接：" + hrefs.get(i) +"<br />发帖时间：" + dates.get(i));
+					if (now.getTime() - DateUtil.parser(dates.get(i), "yyyy-MM-dd HH:mm").getTime() <= TiebaMain.getInstance().getTiebaMillisAgo()) {
 						TbPost tbPost = new TbPost();
-						tbPost.setIsMatch(TbPost.TRUE_MATCH);
-						tbPost.setpContent(contents.get(i));
 						tbPost.setpId(hrefs.get(i));
-						tbPost.setpLastUpdateDate(dates.get(i));
-						tbPost.setpName(froms.get(i));
-						tbPost.setpTitle(titles.get(i));
-						ContentHolder.tbPostService.save(tbPost);
+						tbPost = ContentHolder.tbPostService.searchOne(tbPost);
+						if (tbPost == null) {
+							MailSender.getInstance().send("来自《" + froms.get(i) + "》贴吧的异常邮件", "帖子标题：" + titles.get(i) + "<br />帖子内容：" + contents.get(i) + "<br />帖子链接：" + hrefs.get(i) +"<br />发帖时间：" + dates.get(i));
+							tbPost = new TbPost();
+							tbPost.setIsMatch(TbPost.TRUE_MATCH);
+							tbPost.setpContent(contents.get(i));
+							tbPost.setpId(hrefs.get(i));
+							tbPost.setpLastUpdateDate(dates.get(i));
+							tbPost.setpName(froms.get(i)+"吧");
+							tbPost.setpTitle(titles.get(i));
+							ContentHolder.tbPostService.save(tbPost);
+						}
 					} else {
-						logger.info(now.getTime() - DateUtil.parser(dates.get(i), "yyyy-MM-dd HH:mm").getTime() - 120000l);
+						logger.info(now.getTime() - DateUtil.parser(dates.get(i), "yyyy-MM-dd HH:mm").getTime() - TiebaMain.getInstance().getTiebaMillisAgo());
 					}
 				} catch (Exception e) {
 					logger.error(e.getMessage(), e.getCause());
