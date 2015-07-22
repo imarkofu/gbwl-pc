@@ -35,7 +35,7 @@ public class KeywordsUtil {
 		return false;
 	}
 	
-	public boolean getTianyaKeywords(String content) {
+	public boolean isTianyaKeywords(String content) {
 		if (ContentHolder.keywordsService.getCount(Keywords.TYPE_TIANYA) != tianyaKeywordCount || tianyaKeywords == null) {
 			init();
 		}

@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.base.KeywordsUtil;
 import me.gbwl.pc.main.TianyaMain;
 import me.gbwl.pc.model.TyPost;
-import me.gbwl.pc.util.BlackKeyHelper;
 
 import org.apache.log4j.Logger;
 
@@ -57,7 +57,7 @@ public class TianYaPageProcessor implements PageProcessor {
 //					tyPost.setpReplyTime(replyTime);
 //					tyPost.setIsMatch(TyPost.FALSE_MATCH);
 //					if (BlackKeyHelper.isBlack(tyPost.getpTitle())) {
-					if (BlackKeyHelper.isBlack(postTitle.get(i))) {
+					if (KeywordsUtil.getInstance().isTianyaKeywords(postTitle.get(i))) {
 //						tyPost.setIsMatch(TyPost.TRUE_MATCH);
 						if (!ContentHolder.constant.isTianyaFirst()) {
 //							MailSender.getInstance().send("来自《" + name + "》的异常邮件", "帖子标题："+ postTitle.get(i) + "<br />帖子链接：http://bbs.tianya.cn/" + url + ".shtml");

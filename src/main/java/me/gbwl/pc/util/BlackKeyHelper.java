@@ -59,15 +59,15 @@ public class BlackKeyHelper {
 	/**
 	 * 检查是否含有关键词
 	 */
-	public static boolean isBlack(String word){
-//		if(isModified())loadBlackKey();
-		for(String key : blackKeySet){
-			if(word.indexOf(key)>=0){
-				return true;
-			}
-		}
-		return false;
-	}
+//	public static boolean isBlack(String word){
+////		if(isModified())loadBlackKey();
+//		for(String key : blackKeySet){
+//			if(word.indexOf(key)>=0){
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
 	
 	
 
