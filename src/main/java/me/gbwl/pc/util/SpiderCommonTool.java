@@ -385,6 +385,7 @@ public class SpiderCommonTool{
 		return isWindowsOS;
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public static String getLocalIP(){
 
 		String sIP = "";

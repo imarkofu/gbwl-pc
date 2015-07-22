@@ -3,7 +3,9 @@ package me.gbwl.pc.main;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.gbwl.pc.main.listener.TiebaUrlDetailSpiderListener;
 import me.gbwl.pc.main.listener.TiebaUrlSpiderListener;
+import me.gbwl.pc.main.pageProcessor.TiebaUrlDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.TiebaUrlPageProcessor;
 import me.gbwl.pc.main.pipeline.BasePipeline;
 import me.gbwl.pc.scheduler.MyScheduler;
@@ -14,9 +16,13 @@ import us.codecraft.webmagic.SpiderListener;
 public class TiebaUrlMain {
 
 	private boolean tiebaUrlRun = true;
-	private int 	tiebaUrlThreadCount = 5;
+	private long 	tiebaUrlMillisAgo = 180000;
+	private int 	tiebaUrlThreadCount = 10;
 	private Spider 	spiderTiebaUrlList = null;
-	private long 	tiebaUrlMillisAgo = 120000;
+	
+	private int		tiebaUrlDetailThreadCount = 24;
+	private Spider	spiderTiebaUrlDetailList = null;
+	
 	
 	public void addTiebaUrl(String... urls) {
 		if (tiebaUrlRun) {
@@ -26,6 +32,14 @@ public class TiebaUrlMain {
 			spiderTiebaUrlList.addUrl(urls);
 		}
 	}
+	public void addTiebaUrlDetail(String... urls) {
+		if (tiebaUrlRun) {
+			if (spiderTiebaUrlDetailList == null || spiderTiebaUrlDetailList.getStatus() != Status.Running) {
+				init();
+			}
+		}
+		spiderTiebaUrlDetailList.addUrl(urls);
+	}
 	
 	private synchronized void init() {
 		if (spiderTiebaUrlList == null || spiderTiebaUrlList.getStatus() != Status.Running) {
@@ -34,10 +48,21 @@ public class TiebaUrlMain {
 			listeners.add(new TiebaUrlSpiderListener());
 			this.spiderTiebaUrlList = Spider.create(new TiebaUrlPageProcessor())
 					.thread(tiebaUrlThreadCount)
-					.setExitWhenComplete(false).setScheduler(new MyScheduler("tiebaURL="))
+					.setExitWhenComplete(false).setScheduler(new MyScheduler("tiebaUrl="))
 					.setSpiderListeners(listeners)
 					.addPipeline(new BasePipeline());
 			this.spiderTiebaUrlList.start();
+		}
+		if (spiderTiebaUrlDetailList == null || spiderTiebaUrlDetailList.getStatus() != Status.Running) {
+			try { spiderTiebaUrlDetailList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { spiderTiebaUrlDetailList = null; }
+			List<SpiderListener> listeners = new ArrayList<SpiderListener>();
+			listeners.add(new TiebaUrlDetailSpiderListener());
+			this.spiderTiebaUrlDetailList = Spider.create(new TiebaUrlDetailPageProcessor())
+					.thread(tiebaUrlDetailThreadCount)
+					.setExitWhenComplete(false).setScheduler(new MyScheduler("tiebaUrlDetail="))
+					.setSpiderListeners(listeners)
+					.addPipeline(new BasePipeline());
+			this.spiderTiebaUrlDetailList.start();
 		}
 	}
 	public synchronized void stop () {

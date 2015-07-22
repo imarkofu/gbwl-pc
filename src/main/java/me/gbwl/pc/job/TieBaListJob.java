@@ -4,7 +4,9 @@ import java.util.Date;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.base.KeywordsUtil;
+import me.gbwl.pc.base.UrlsUtil;
 import me.gbwl.pc.main.TiebaMain;
+import me.gbwl.pc.main.TiebaUrlMain;
 import me.gbwl.pc.util.DateUtil;
 import me.gbwl.pc.util.SpringUtil;
 
@@ -13,6 +15,8 @@ public class TieBaListJob {
 	public void execute() {
 		Date now = new Date();
 		TiebaMain.getInstance().addTiebaUrl(KeywordsUtil.getInstance().getTiebaUrls());
+		TiebaUrlMain.getInstance().addTiebaUrl(UrlsUtil.getInstance().getTiebaUrls());
+		
 		if ((ContentHolder.constant.isTianYaRun()) && (!ContentHolder.constant.isTianyaFirst()))
 			SpringUtil.getInstance().addTianYaListUrl(ContentHolder.constant.getTianyaURL());
 		if (ContentHolder.constant.isJLSCRun()) {

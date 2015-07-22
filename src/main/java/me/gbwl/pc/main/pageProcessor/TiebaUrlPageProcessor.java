@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.base.KeywordsUtil;
+import me.gbwl.pc.main.TiebaUrlMain;
 import me.gbwl.pc.model.TbPost;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
@@ -26,6 +27,7 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 						//爬取详情页面
 						if (ContentHolder.constant.isTieBaDetailRun()) {
 //							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
+							TiebaUrlMain.getInstance().addTiebaUrlDetail(topicURLs.get(i));
 						}
 					}
 				}
@@ -41,6 +43,7 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 						//爬取详情页面
 						if (ContentHolder.constant.isTieBaDetailRun()) {
 //							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
+							TiebaUrlMain.getInstance().addTiebaUrlDetail(topURLs.get(i));
 						}
 					}
 				}
@@ -57,6 +60,7 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 					//爬详情页面
 					if (ContentHolder.constant.isTieBaDetailRun()) {
 //						SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
+						TiebaUrlMain.getInstance().addTiebaUrlDetail(listURLs.get(i));
 					}
 				}
 			}

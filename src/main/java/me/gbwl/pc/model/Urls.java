@@ -15,8 +15,8 @@ public class Urls {
 	private String	url;
 	private Integer type;
 	
-	public static final Integer URLS_TYPE_TIEBA		= 0;
-	public static final Integer URLS_TYPE_TIANYA	= 1;
+	public static final Integer URLS_TYPE_TIEBA		= 1;
+	public static final Integer URLS_TYPE_TIANYA	= 2;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {

@@ -69,7 +69,8 @@ public class MyHttpClientDownloader extends AbstractDownloader {
         return httpClient;
     }
 
-    @Override
+    @SuppressWarnings("deprecation")
+	@Override
     public Page download(Request request, Task task) {
         Site site = null;
         if (task != null) {
