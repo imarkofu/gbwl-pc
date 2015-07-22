@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
+import me.gbwl.pc.main.TianyaMain;
 import me.gbwl.pc.model.TyPost;
 import me.gbwl.pc.util.BlackKeyHelper;
-import me.gbwl.pc.util.SpringUtil;
 
 import org.apache.log4j.Logger;
 
@@ -37,8 +37,6 @@ public class TianYaPageProcessor implements PageProcessor {
 //		List<String> nextPage	= page.getHtml().xpath("//div/div/div/div/div/div[@class='links']/a[@rel='nofollow']/@href").all();
 		for (int i = 0; i < postTitle.size(); i++) {
 			try {
-				String url = (String) postURL.get(i);
-				url = url.substring(url.lastIndexOf("/") + 1, url.lastIndexOf("."));
 //				String sql = "select * from ty_post where pId=?";
 //				List<Object> params = new ArrayList<Object>();
 //				params.add(url);
@@ -65,12 +63,14 @@ public class TianYaPageProcessor implements PageProcessor {
 //							MailSender.getInstance().send("来自《" + name + "》的异常邮件", "帖子标题："+ postTitle.get(i) + "<br />帖子链接：http://bbs.tianya.cn/" + url + ".shtml");
 							String sql = "select * from ty_post where pId=?";
 							List<Object> params = new ArrayList<Object>();
-							params.add(url);
+							params.add(postURL.get(i));
 							List<TyPost> tyPosts = ContentHolder.tyPostService.search(sql, params);
 							if ((tyPosts == null) || (tyPosts.size() <= 0)) {
 								//拉取详情页面
-								if (ContentHolder.constant.isTianYaDetailRun())
-									SpringUtil.getInstance().addTianyaDetailListUrl("http://bbs.tianya.cn/" + url + ".shtml");
+								if (ContentHolder.constant.isTianYaDetailRun()) {
+//									SpringUtil.getInstance().addTianyaDetailListUrl("http://bbs.tianya.cn/" + url + ".shtml");
+									TianyaMain.getInstance().addTianyaDetailUrls(postURL.get(i));
+								}
 							}
 						}
 					}

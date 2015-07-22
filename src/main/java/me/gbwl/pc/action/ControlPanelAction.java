@@ -34,8 +34,8 @@ public class ControlPanelAction {
 		ModelAndView mav = new ModelAndView("controlPanel/controlPanelSearch");
 		mav.addObject("tiebaSize", TiebaMain.getInstance().tiebaTaskSize());
 //		mav.addObject("tiebaDetailSize", SpringUtil.getInstance().getTieBaDetailSize());
-		mav.addObject("tianyaSize", SpringUtil.getInstance().getTianYaSize());
-		mav.addObject("tianyaDetailSize", SpringUtil.getInstance().getTianYaDetailSize());
+//		mav.addObject("tianyaSize", SpringUtil.getInstance().getTianYaSize());
+//		mav.addObject("tianyaDetailSize", SpringUtil.getInstance().getTianYaDetailSize());
 		mav.addObject("jlscSize", SpringUtil.getInstance().getJLSCSize());
 		mav.addObject("sendEmail", ContentHolder.constant.isSendEmail()?1:0);
 		mav.addObject("push", ContentHolder.constant.isPush()?1:0);
@@ -115,21 +115,21 @@ public class ControlPanelAction {
 		return result;
 	}
 	
-	@RequestMapping(value="/restartTianYa.do", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object>  restartTianYa() {
-		Map<String, Object> result = new HashMap<String, Object>();
-		try {
-			SpringUtil.getInstance().restartTianYa();
-			
-			result.put("result", true);result.put("msg", "重启成功");
-		} catch (Exception e) {
-			logger.error("重启天涯异常：" + e.getMessage(), e.getCause());
-			result.put("result", false);result.put("msg", "重启失败");
-		}
-		logger.info(result);
-		return result;
-	}
+//	@RequestMapping(value="/restartTianYa.do", method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object>  restartTianYa() {
+//		Map<String, Object> result = new HashMap<String, Object>();
+//		try {
+//			SpringUtil.getInstance().restartTianYa();
+//			
+//			result.put("result", true);result.put("msg", "重启成功");
+//		} catch (Exception e) {
+//			logger.error("重启天涯异常：" + e.getMessage(), e.getCause());
+//			result.put("result", false);result.put("msg", "重启失败");
+//		}
+//		logger.info(result);
+//		return result;
+//	}
 	@RequestMapping(value="/restartJLSC.do", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> restartJLSC() {

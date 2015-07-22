@@ -6,6 +6,7 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
+import me.gbwl.pc.main.TianyaMain;
 import me.gbwl.pc.model.TyPost;
 import me.gbwl.pc.util.DateUtil;
 import me.gbwl.pc.util.JPushUtil;
@@ -31,8 +32,8 @@ public class TianYaDetailPageProcessor implements PageProcessor {
 //			logger.info("系统异常");
 //			return;
 //		}
-		String pageUrl = page.getRequest().getUrl();
-		String pid = pageUrl.substring(pageUrl.lastIndexOf("/")+1, pageUrl.lastIndexOf("."));
+//		String pageUrl = page.getRequest().getUrl();
+//		String pid = pageUrl.substring(pageUrl.lastIndexOf("/")+1, pageUrl.lastIndexOf("."));
 //		TyPost tyPost = new TyPost();
 //		tyPost.setpId(pid);
 //		tyPost = tyPostService.searchOne(tyPost);
@@ -55,22 +56,27 @@ public class TianYaDetailPageProcessor implements PageProcessor {
 				Date now = new Date();
 				Date d = DateUtil.parser(date, "yyyy-MM-dd HH:mm:ss");
 				if (d != null) {
-					if (now.getTime() - d.getTime() <= ContentHolder.constant.getTianyaAgo()) {
-						MailSender.getInstance().send("来自《" + pName.get(0) + "》的异常邮件", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
+					if (now.getTime() - d.getTime() <= TianyaMain.getInstance().getTianyaMillisAgo()) {
+						
 						TyPost tyPost = new TyPost();
-						tyPost.setIsMatch(TyPost.TRUE_MATCH);
-						tyPost.setpAuthor(author.get(0));
-						tyPost.setpClickCount(0);
-						tyPost.setpName(pName.get(0));
-						tyPost.setpId(pid);
-						tyPost.setpReplyCount(0);
-						tyPost.setpReplyTime(d);
-						tyPost.setpTitle(title.get(0));
-						ContentHolder.tyPostService.save(tyPost);
-						JPushUtil.getInstance().pushAndroid("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
-						MailSender.getInstance().send("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：http://bbs.tianya.cn/" + pid + ".shtml<br />发帖时间：" + date);
+						tyPost.setpId(page.getRequest().getUrl());
+						tyPost = ContentHolder.tyPostService.searchOne(tyPost);
+						if (tyPost == null) {
+							MailSender.getInstance().send("来自《" + pName.get(0) + "》的异常邮件", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + date);
+							tyPost = new TyPost();
+							tyPost.setIsMatch(TyPost.TRUE_MATCH);
+							tyPost.setpAuthor(author.get(0));
+							tyPost.setpClickCount(0);
+							tyPost.setpName(pName.get(0));
+							tyPost.setpId(page.getRequest().getUrl());
+							tyPost.setpReplyCount(0);
+							tyPost.setpReplyTime(d);
+							tyPost.setpTitle(title.get(0));
+							ContentHolder.tyPostService.save(tyPost);
+							JPushUtil.getInstance().pushAndroid("来自《"+pName.get(0)+"》的异常帖子", "帖子标题："+ title.get(0) + "<br />帖子内容："+(content.get(0).length()>300?content.get(0).substring(0, 300):content.get(0))+"<br />帖子链接：" + page.getRequest().getUrl() + "<br />发帖时间：" + date);
+						}
 					} else {
-						logger.info((now.getTime() - d.getTime())+">=" + ContentHolder.constant.getTianyaAgo());
+//						logger.info((now.getTime() - d.getTime())+">=" + ContentHolder.constant.getTianyaAgo());
 					}
 				} else {
 					logger.info("日期抓取错误"+date);

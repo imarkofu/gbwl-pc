@@ -9,14 +9,10 @@ import me.gbwl.pc.main.listener.JLSCDetailSpiderListener;
 import me.gbwl.pc.main.listener.JLSCSpiderListener;
 import me.gbwl.pc.main.listener.MainJLSCDetailSpiderListener;
 import me.gbwl.pc.main.listener.MainJLSCSpiderListener;
-import me.gbwl.pc.main.listener.TianYaDetailSpiderListener;
-import me.gbwl.pc.main.listener.TianYaSpiderListener;
 import me.gbwl.pc.main.pageProcessor.JLSCDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.JLSCPageProcessor;
 import me.gbwl.pc.main.pageProcessor.MainJLSCDetailPageProcessor;
 import me.gbwl.pc.main.pageProcessor.MainJLSCPageProcessor;
-import me.gbwl.pc.main.pageProcessor.TianYaDetailPageProcessor;
-import me.gbwl.pc.main.pageProcessor.TianYaPageProcessor;
 import me.gbwl.pc.main.pipeline.BasePipeline;
 import me.gbwl.pc.scheduler.MyScheduler;
 
@@ -30,9 +26,9 @@ import us.codecraft.webmagic.SpiderListener;
 public class SpringUtil {
 	
 	private static final Logger logger = Logger.getLogger(SpringUtil.class);
-	private Spider spiderTianYaList = null;
+//	private Spider spiderTianYaList = null;
 	
-	private Spider spiderTianYaDetailList = null;
+//	private Spider spiderTianYaDetailList = null;
 	private Spider spiderJLSCList = null;
 	private Spider spiderJLSCDetailList = null;
 	private Spider spiderMainJLSCList = null;
@@ -52,26 +48,7 @@ public class SpringUtil {
 			
 			}
 			if (ContentHolder.constant.isTianYaRun()) {
-				List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
-				spiderListeners.add(new TianYaSpiderListener());
-				this.spiderTianYaList = Spider.create(new TianYaPageProcessor())
-						.thread(ContentHolder.constant.getTianYaThreadCount())
-						.setExitWhenComplete(false).setScheduler(new MyScheduler("tianya="))
-						.setSpiderListeners(spiderListeners)
-						.addPipeline(new BasePipeline());
-				this.spiderTianYaList.start();
-				if (ContentHolder.constant.isTianYaDetailRun()) {
-					spiderListeners.clear();
-					spiderListeners.add(new TianYaDetailSpiderListener());
-					this.spiderTianYaDetailList = Spider.create(new TianYaDetailPageProcessor())
-							.thread(ContentHolder.constant.getTianYaDetailThreadCount())
-							.setExitWhenComplete(false).setScheduler(new MyScheduler("tianyaDetail="))
-							.setSpiderListeners(spiderListeners)
-							.addPipeline(new BasePipeline());
-					this.spiderTianYaDetailList.start();
-				}
-				if (ContentHolder.constant.isTianyaFirst())
-					this.spiderTianYaList.addUrl(ContentHolder.constant.getTianyaURL());
+				
 			}
 			if (ContentHolder.constant.isJLSCRun()) {
 				List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
@@ -119,41 +96,8 @@ public class SpringUtil {
 		return Tools.springUtil;
 	}
 	
-	public void addTianyaDetailListUrl(String... urls) {
-		if (ContentHolder.constant.isTianYaRun() || restartTianya) {
-			if (this.spiderTianYaDetailList == null || this.spiderTianYaDetailList.getStatus() != Status.Running) {
-				List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
-				spiderListeners.add(new TianYaDetailSpiderListener());
-				this.spiderTianYaDetailList = Spider.create(new TianYaDetailPageProcessor())
-						.thread(ContentHolder.constant.getTianYaDetailThreadCount())
-						.setExitWhenComplete(false).setScheduler(new MyScheduler("tianyaDetail="))
-						.setSpiderListeners(spiderListeners)
-						.addPipeline(new BasePipeline());
-				this.spiderTianYaDetailList.start();
-			}
-			if  (urls != null && urls.length > 0) {
-				this.spiderTianYaDetailList.addUrl(urls);
-			}
-		}
-	}
 
 
-	public void addTianYaListUrl(String... urls) {
-		if (!ContentHolder.constant.isTianYaRun() || restartTianya)
-			return;
-		if (this.spiderTianYaList == null || this.spiderTianYaList.getStatus() != Status.Running) {
-			List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
-			spiderListeners.add(new TianYaSpiderListener());
-			this.spiderTianYaList = Spider.create(new TianYaPageProcessor())
-					.thread(ContentHolder.constant.getTianYaThreadCount()).setExitWhenComplete(false)
-					.setScheduler(new MyScheduler("tianya"))
-					.addPipeline(new BasePipeline())
-					.setSpiderListeners(spiderListeners);
-			this.spiderTianYaList.start();
-		}
-		if ((urls != null) && (urls.length > 0))
-			this.spiderTianYaList.addUrl(urls);
-	}
 	private boolean restartJLSC = false;
 	public void addJLSCListUrl(String... urls) {
 		if (!ContentHolder.constant.isJLSCRun() || restartJLSC)
@@ -221,40 +165,6 @@ public class SpringUtil {
 			spiderMainJLSCDetailList.addUrl(urls);
 	}
 
-	private boolean restartTianya = false;
-	public void restartTianYa() {
-		restartTianya = true;
-		if (ContentHolder.constant.isTianYaRun()) {
-			try {
-				this.spiderTianYaList.stop();
-				Thread.sleep(3000);
-			} catch (Exception e) { }
-			this.spiderTianYaList = null;
-			List<SpiderListener> spiderListeners = new ArrayList<SpiderListener>();
-			spiderListeners.add(new TianYaSpiderListener());
-			this.spiderTianYaList = Spider.create(new TianYaPageProcessor())
-					.thread(ContentHolder.constant.getTianYaThreadCount())
-					.setExitWhenComplete(false).setScheduler(new MyScheduler("tianya="))
-					.setSpiderListeners(spiderListeners)
-					.addPipeline(new BasePipeline());
-			this.spiderTianYaList.start();
-			if (ContentHolder.constant.isTianYaDetailRun()) {
-				try { this.spiderTianYaDetailList.stop();Thread.sleep(3000); } catch (Exception e) { }
-				this.spiderTianYaDetailList = null;
-				spiderListeners.clear();
-				spiderListeners.add(new TianYaDetailSpiderListener());
-				this.spiderTianYaDetailList = Spider.create(new TianYaDetailPageProcessor())
-						.thread(ContentHolder.constant.getTianYaDetailThreadCount())
-						.setExitWhenComplete(false).setScheduler(new MyScheduler("tianyaDetail="))
-						.setSpiderListeners(spiderListeners)
-						.addPipeline(new BasePipeline());
-				this.spiderTianYaDetailList.start();
-			}
-			if (ContentHolder.constant.isTianyaFirst())
-				this.spiderTianYaList.addUrl(ContentHolder.constant.getTianyaURL());
-		}
-		restartTianya = false;
-	}
 	public void restartJLSC() {
 		restartJLSC = true;
 		if (ContentHolder.constant.isJLSCRun()) {
@@ -301,22 +211,6 @@ public class SpringUtil {
 		}
 	}
 	
-	public int getTianYaSize() {
-		try {
-			MyScheduler myScheduler = (MyScheduler) this.spiderTianYaList.getScheduler();
-			return myScheduler.size();
-		} catch (Exception e) {
-			return 0;
-		}
-	}
-	public int getTianYaDetailSize() {
-		try {
-			MyScheduler myScheduler = (MyScheduler) this.spiderTianYaDetailList.getScheduler();
-			return myScheduler.size();
-		} catch (Exception e) {
-			return 0;
-		}
-	}
 	public int getJLSCSize() {
 		try {
 			MyScheduler myScheduler = (MyScheduler) this.spiderJLSCList.getScheduler();
