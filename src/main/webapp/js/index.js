@@ -1,6 +1,6 @@
 var isDelete_map={"0":"未删除","1":"已删除"};
 var keywords_type_map={"1":"贴吧关键词", "2":"天涯关键词"}
-var urls_type_map={"1":"贴吧URL", "2":"天涯URL"}
+var urls_type_map={"1":"贴吧URL", "2":"天涯URL","3":"全国纪律审查","4":"纪律审查"}
 
 function getSelectList(map, selectedId) {
 	var s = "";

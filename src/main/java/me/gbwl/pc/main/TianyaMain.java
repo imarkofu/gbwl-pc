@@ -65,6 +65,10 @@ public class TianyaMain {
 			this.spiderTianYaDetailList.start();
 		}
 	}
+	public void stop() {
+		try {spiderTianYaList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { spiderTianYaList = null; }
+		try {spiderTianYaDetailList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { spiderTianYaDetailList = null; }
+	}
 	public int getTianyaThreadCount() {
 		return tianyaThreadCount;
 	}

@@ -66,12 +66,8 @@ public class TiebaUrlMain {
 		}
 	}
 	public synchronized void stop () {
-		try {
-			this.spiderTiebaUrlList.stop();
-			Thread.sleep(100);
-		} catch (Exception e) { } finally {
-			this.spiderTiebaUrlList = null;
-		}
+		try { this.spiderTiebaUrlList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { this.spiderTiebaUrlList = null; }
+		try { this.spiderTiebaUrlDetailList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { this.spiderTiebaUrlDetailList = null; }
 	}
 	public long getTiebaUrlMillisAgo() {
 		return tiebaUrlMillisAgo;

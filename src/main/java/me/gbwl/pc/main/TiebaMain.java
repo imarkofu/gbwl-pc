@@ -45,12 +45,7 @@ public class TiebaMain {
 	}
 	
 	public synchronized void stop () {
-		try {
-			this.spiderTiebaList.stop();
-			Thread.sleep(100);
-		} catch (Exception e) { } finally {
-			this.spiderTiebaList = null;
-		}
+		try { this.spiderTiebaList.stop(); Thread.sleep(100); } catch (Exception e) { } finally { this.spiderTiebaList = null; }
 	}
 	
 	public synchronized int tiebaTaskSize() {

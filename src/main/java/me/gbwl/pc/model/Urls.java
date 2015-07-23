@@ -17,6 +17,8 @@ public class Urls {
 	
 	public static final Integer URLS_TYPE_TIEBA		= 1;
 	public static final Integer URLS_TYPE_TIANYA	= 2;
+	public static final Integer URLS_TYPE_JLSC		= 4;
+	public static final Integer URLS_TYPE_JLSCQ		= 3;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	public Integer getId() {
