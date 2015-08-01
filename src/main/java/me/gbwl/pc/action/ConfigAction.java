@@ -8,8 +8,10 @@ import me.gbwl.pc.model.Config;
 import me.gbwl.pc.service.ConfigService;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping(value="/config")
 public class ConfigAction extends BaseAction<Config, Integer> {
 
 	private ConfigService configService;
