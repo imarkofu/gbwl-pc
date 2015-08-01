@@ -5,10 +5,10 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
+import me.gbwl.pc.main.JLSCMain;
 import me.gbwl.pc.model.JLSC;
 import me.gbwl.pc.util.DateUtil;
 import me.gbwl.pc.util.JPushUtil;
-import me.gbwl.pc.util.SpringUtil;
 
 import org.apache.log4j.Logger;
 
@@ -39,7 +39,8 @@ public class JLSCPageProcessor implements PageProcessor {
 			}
 			site.addCookie("__jsl_clearance", c+";" + e);
 			try { Thread.sleep(1500); } catch (Exception ex) { }
-			SpringUtil.getInstance().addJLSCListUrl(page.getRequest().getUrl());
+//			SpringUtil.getInstance().addJLSCListUrl(page.getRequest().getUrl());
+			JLSCMain.getInstance().addJLSCURL(page.getRequest().getUrl());
 		} else if (page.getRequest().getUrl().indexOf("www.ccdi.gov.cn/jlsc/index.html") != -1) {
 			try {
 				List<String> lines_content = page.getHtml().xpath("//ul[@class='list_news_dl']/li/a/text()").all();

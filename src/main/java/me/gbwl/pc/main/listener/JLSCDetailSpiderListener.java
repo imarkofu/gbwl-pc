@@ -1,6 +1,6 @@
 package me.gbwl.pc.main.listener;
 
-import me.gbwl.pc.util.SpringUtil;
+import me.gbwl.pc.main.JLSCMain;
 import us.codecraft.webmagic.Request;
 import us.codecraft.webmagic.SpiderListener;
 
@@ -14,7 +14,8 @@ public class JLSCDetailSpiderListener implements SpiderListener {
 
 	@Override
 	public void onError(Request request) {
-		SpringUtil.getInstance().addJLSCDetailListUrl(request.getUrl());
+//		SpringUtil.getInstance().addJLSCDetailListUrl(request.getUrl());
+		JLSCMain.getInstance().addJLSCDetailURL(request.getUrl());
 	}
 
 }

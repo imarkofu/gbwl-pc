@@ -15,7 +15,7 @@ import us.codecraft.webmagic.SpiderListener;
 
 public class TiebaUrlMain {
 
-	private boolean tiebaUrlRun = true;
+	private boolean tiebaUrlRun = false;
 	private long 	tiebaUrlMillisAgo = 240000;
 	private int 	tiebaUrlThreadCount = 10;
 	private Spider 	spiderTiebaUrlList = null;

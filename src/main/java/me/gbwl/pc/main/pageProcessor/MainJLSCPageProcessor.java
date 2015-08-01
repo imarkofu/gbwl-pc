@@ -5,10 +5,10 @@ import java.util.List;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.mail.MailSender;
+import me.gbwl.pc.main.JLSCMain;
 import me.gbwl.pc.model.JLSC;
 import me.gbwl.pc.util.DateUtil;
 import me.gbwl.pc.util.JPushUtil;
-import me.gbwl.pc.util.SpringUtil;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -252,7 +252,8 @@ public class MainJLSCPageProcessor implements PageProcessor {
 			}
 		} else if (page.getRequest().getUrl().indexOf("www.zjsjw.gov.cn/subject.asp") != -1) {
 			List<String> urls = page.getHtml().xpath("//td[@class='dd']/a/@href").all();
-			SpringUtil.getInstance().addmainJLSCDetailListUrl(urls.toArray(new String[0]));
+//			SpringUtil.getInstance().addmainJLSCDetailListUrl(urls.toArray(new String[0]));
+			JLSCMain.getInstance().addMainJLSCDetailURL(urls.toArray(new String[0]));
 		} else if (page.getRequest().getUrl().indexOf("www.jxlz.gov.cn/jjjcyw/jlsc/index.htm") != -1) {
 			List<String> titles = page.getHtml().xpath("//td[@class='title']/a/text()").all();
 			List<String> urls = page.getHtml().xpath("//td[@class='title']/a/@href").all();
@@ -593,7 +594,8 @@ public class MainJLSCPageProcessor implements PageProcessor {
 		} else if (page.getRequest().getUrl().indexOf("www.hnlzw.net/jingzcm_index.php") != -1) {
 			List<String> urls = page.getHtml().xpath("//div[@id='jxxxcon']/ul/li/a/@href").all();
 			if (urls != null && urls.size() > 0) {
-				SpringUtil.getInstance().addmainJLSCDetailListUrl(urls.toArray(new String[0]));
+//				SpringUtil.getInstance().addmainJLSCDetailListUrl(urls.toArray(new String[0]));
+				JLSCMain.getInstance().addMainJLSCDetailURL(urls.toArray(new String[0]));
 			}
 			urls = page.getHtml().xpath("//div[@id='dymaincon2']/ul/li/h1/a/@href").all();
 			List<String> titles = page.getHtml().xpath("//div[@id='dymaincon2']/ul/li/h1/a/text()").all();

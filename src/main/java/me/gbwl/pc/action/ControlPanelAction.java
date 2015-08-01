@@ -36,7 +36,7 @@ public class ControlPanelAction {
 //		mav.addObject("tiebaDetailSize", SpringUtil.getInstance().getTieBaDetailSize());
 //		mav.addObject("tianyaSize", SpringUtil.getInstance().getTianYaSize());
 //		mav.addObject("tianyaDetailSize", SpringUtil.getInstance().getTianYaDetailSize());
-		mav.addObject("jlscSize", SpringUtil.getInstance().getJLSCSize());
+//		mav.addObject("jlscSize", SpringUtil.getInstance().getJLSCSize());
 		mav.addObject("sendEmail", ContentHolder.constant.isSendEmail()?1:0);
 		mav.addObject("push", ContentHolder.constant.isPush()?1:0);
 		return mav;
@@ -135,7 +135,7 @@ public class ControlPanelAction {
 	public Map<String, Object> restartJLSC() {
 		Map<String, Object> result = new HashMap<String, Object>();
 		try {
-			SpringUtil.getInstance().restartJLSC();
+//			SpringUtil.getIn+stance().restartJLSC();
 			result.put("result", true);result.put("msg", "重启成功");
 		} catch (Exception e) {
 			logger.error("重启纪律审查异常：" + e.getMessage(), e.getCause());

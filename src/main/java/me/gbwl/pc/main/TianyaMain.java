@@ -15,7 +15,7 @@ import us.codecraft.webmagic.SpiderListener;
 
 public class TianyaMain {
 
-	private boolean	tianyaRun				= true;
+	private boolean	tianyaRun				= false;
 	private long 	tianyaMillisAgo 			= 240000;
 	private int		tianyaThreadCount		= 2;
 	private Spider	spiderTianYaList		= null;

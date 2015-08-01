@@ -12,7 +12,7 @@ import us.codecraft.webmagic.SpiderListener;
 
 public class TiebaMain {
 
-	private boolean tiebaRun = true;
+	private boolean tiebaRun = false;
 	private int tiebaThreadCount = 5;
 	private Spider spiderTiebaList = null;
 	private long tiebaMillisAgo = 240000;
