@@ -17,23 +17,20 @@
 	
 	<div id="editObj" style="display: none;">
 		<form id="editForm" method="post">
+			<input type="hidden" id="id" name="id" value="">
 			<table width="100%" style="padding: 3px">
 				<tbody>
 					<tr>
 						<td width="60px">keyword</td>
-						<td><input type="text" name="keyword" value="" /></td>
+						<td><input type="text" id="keyword" name="keyword" value="" /></td>
 					</tr>
 					<tr>
-						<td>values</td>
-						<td><input type="text" name="keyword" value="" /></td>
-					</tr>
-					<tr>
-						<td>values</td>
-						<td><input type="text" name="values" value="" /></td>
+						<td>val</td>
+						<td><input type="text" id="val" name="val" value="" /></td>
 					</tr>
 					<tr>
 						<td>description</td>
-						<td><input type="text" name="des" value="" /></td>
+						<td><input type="text" id="des" name="des" value="" /></td>
 					</tr>
 				</tbody>
 			</table>
@@ -69,14 +66,14 @@ function searchInit(action) {
 		sortOrder:'desc',
 		columns:[[
 			{field:'ck',checkbox:true,width:2},
-			{field:'id',title:'ID',sortable:false,
+			{field:'id',title:'ID',sortable:true,
 				formatter:function(value,row,index){return row.id;} 
 			},
 			{field:'keyword',title:'keyword',sortable:false,
 				formatter:function(value,row,index){return row.keyword;} 
 			},
-			{field:'values',title:'values',sortable:false,
-				formatter:function(value,row,index){return row.values;} 
+			{field:'val',title:'val',sortable:false,width:80,
+				formatter:function(value,row,index){return row.val;} 
 			},
 			{field:'des',title:'description',sortable:false,
 				formatter:function(value,row,index){return row.des;} 
@@ -110,7 +107,13 @@ function searchInit(action) {
 				text:'编辑',
 				iconCls:'icon-edit',
 				handler:function(){
-					editObj("编辑配置信息","${sessionScope.apppath}/keywords/update.do", 300, 150);
+					editObj("编辑配置信息", "${sessionScope.apppath}/config/view.do?id=", "${sessionScope.apppath}/config/update.do", 300, 180);
+				}
+			},{
+				text:'重启配置',
+				iconCls:'icon-reload',
+				handler:function(){
+					sendPost("${sessionScope.apppath}/config/restartConfig.do", "您确定要重启配置信息吗？");
 				}
 			}
 		]

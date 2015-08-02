@@ -174,81 +174,159 @@ function newObj(title, action, width, height) {
 //	//dialog.dialog("open");	//解决在初始化时出现问题，不能关闭dialog的问题
 //}
 
-function editObj(title, viewAction, updateAction, url, width, height) {
-	if (width == undefined || width == '') {
-		width = 400;
+//function editObj(title, viewAction, updateAction, url, width, height) {
+//	if (width == undefined || width == '') {
+//		width = 400;
+//	}
+//	if (height == undefined || height == '') {
+//		height = 200;
+//	}
+//	var count = 0;
+//	var id;
+//	$('input[name="keyIds"]:checked').each(function(i, d) {
+//		count = count + 1;
+//		id = $(this).val();
+//	});
+//	if (count <= 0 || count > 1) {
+//		show_my_messager("提示", "请选择一条记录进行编辑");
+//		return;
+//	}
+//	viewAction = viewAction + id;
+//	$('#editObj').show();
+//	$('#editObj').prop("title", title);
+//	var dialog = $("#editObj").dialog({
+//			autoOpen : false,
+//			height : height,
+//			width : width,
+//			modal : false,
+//			resizable : false,
+//			buttons : {
+//				"确定" : function() {
+//					if ($.isFunction(window.validation)) {
+//						var rs = validation($('#editForm'));
+//						if (rs == undefined || rs == false) {
+//							return;
+//						}
+//					}
+//					// ajax提交
+//					$.ajax({
+//						type : "post",
+//						dataType : "json",
+//						url : updateAction,
+//						data : $('#editForm').serializeArray(),
+//						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
+//						success : function(data) {
+//							if (data != undefined
+//									&& data.result == true) {
+//								dialog.dialog("close");
+//								show_my_messager("修改"
+//										+ title, "修改成功");
+//								searchInit(url);
+//								// location.reload();
+//							} else {
+//								returnError(data);
+//							}
+//						}
+//					});
+//				},
+//				"取消" : function() {
+//					dialog.dialog("close");
+//				}
+//			},
+//			close : function() {
+//				$(this).dialog("destroy");
+//				$(this).hide();
+//			}
+//		});
+//	$.get(viewAction, function(data) {
+//		if (data != undefined && data.result != undefined && data.result) {
+//			var obj = $("#editForm");
+//			$.each(data.row, function(id, ival) {
+//				if (obj.find("#" + id) != undefined)
+//					obj.find("#" + id).val(ival);
+//			});
+//			if ($.isFunction(window.editInitCombobox))
+//				editInitCombobox(obj, data.row);
+//			dialog.dialog("open");
+//		} else {
+//			returnError(data);
+//		}
+//	});
+//}
+function editObj(name, url, action, width, height) {
+	if(width==undefined||width==''){
+		width=500;
 	}
-	if (height == undefined || height == '') {
-		height = 200;
+	if(height==undefined||height==''){
+		height=330;
 	}
-	var count = 0;
-	var id;
-	$('input[name="keyIds"]:checked').each(function(i, d) {
-		count = count + 1;
-		id = $(this).val();
+	var rows = $('#dg').datagrid('getSelections');
+	var id = "";
+	var size = 0;
+	if(rows==undefined||rows==''){
+		$.messager.alert('提示','请选择一条记录进行编辑！','info');
+	    return;
+	}
+	$.each(rows,function(i,n){
+		if(i==0) 
+	    	id = n.id;
+		size=i;
 	});
-	if (count <= 0 || count > 1) {
-		show_my_messager("提示", "请选择一条记录进行编辑");
-		return;
+	if(size>0){
+		$.messager.alert('提示','该服务只允许单条操作','info');
+	    return;
 	}
-	viewAction = viewAction + id;
+	url = url+id;
 	$('#editObj').show();
-	$('#editObj').prop("title", title);
-	var dialog = $("#editObj").dialog({
-			autoOpen : false,
-			height : height,
-			width : width,
-			modal : false,
-			resizable : false,
-			buttons : {
-				"确定" : function() {
-					if ($.isFunction(window.validation)) {
-						var rs = validation($('#editForm'));
-						if (rs == undefined || rs == false) {
-							return;
-						}
-					}
-					// ajax提交
-					$.ajax({
-						type : "post",
-						dataType : "json",
-						url : updateAction,
-						data : $('#editForm').serializeArray(),
-						contentType : 'application/x-www-form-urlencoded; charset=utf-8',
-						success : function(data) {
-							if (data != undefined
-									&& data.result == true) {
-								dialog.dialog("close");
-								show_my_messager("修改"
-										+ title, "修改成功");
-								searchInit(url);
-								// location.reload();
-							} else {
-								returnError(data);
-							}
-						}
-					});
-				},
-				"取消" : function() {
-					dialog.dialog("close");
-				}
-			},
-			close : function() {
-				$(this).dialog("destroy");
-				$(this).hide();
-			}
-		});
-	$.get(viewAction, function(data) {
-		if (data != undefined && data.result != undefined && data.result) {
+	$.get(url,function(data){
+		if(data!=undefined&&data.result!=undefined&&data.result){
 			var obj = $("#editForm");
-			$.each(data.row, function(id, ival) {
-				if (obj.find("#" + id) != undefined)
-					obj.find("#" + id).val(ival);
+			$.each(data.row,function(id,ival){
+				if(obj.find("#"+id)!=undefined)
+					obj.find("#"+id).val(ival); 
 			});
 			if ($.isFunction(window.editInitCombobox))
-				editInitCombobox(obj, data.row);
-			dialog.dialog("open");
-		} else {
+				editInitCombobox(obj,data.row);
+			$("#editObj").dialog({
+				title:'编辑'+name,
+				top:100,
+				width:width,
+				height:height,
+				cache: false,
+				closed: true,
+			});
+			$('#editObj').dialog('open');
+			$("#editSubmit").unbind();
+			$("#editSubmit").click(function(){
+				if ($.isFunction(window.validation)){
+					var rs=validation($('#editForm'));
+					if(rs==undefined||rs==false){
+						return;
+					}
+				}
+				$.ajax({
+		            type: "post",
+		            dataType: "json",
+		            url: action,
+		            data: $('#editForm').serializeArray(),
+		            contentType: 'application/x-www-form-urlencoded; charset=utf-8', 
+		            success: function(data){
+		            	if(data!=undefined&&data.result==true){
+		            		$('#editObj').dialog('close');
+		            		$('#dg').datagrid('reload');
+		            		$.messager.show({
+		                		title:'编辑'+name,
+		                		msg:'编辑成功！',
+		                		timeout:5000,
+		                		showType:'slide'
+		            		});
+		            	}else{
+		            		returnError(data);
+		            	}
+		            }
+				});
+			});
+		}else{
 			returnError(data);
 		}
 	});

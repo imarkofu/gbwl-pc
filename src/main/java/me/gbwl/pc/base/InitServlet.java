@@ -24,15 +24,13 @@ public class InitServlet extends HttpServlet
     logger.info("--------------start init servlet-----------");
     super.init(config);
     ContentHolder.context = (WebApplicationContext)getServletConfig().getServletContext().getAttribute("org.springframework.web.servlet.FrameworkServlet.CONTEXT.restful");
-//    ContentHolder.constant = (Constant)ContentHolder.context.getBean("constant", Constant.class);
     ContentHolder.tbPostService = (TbPostService)ContentHolder.context.getBean("tbPostService", TbPostService.class);
     ContentHolder.tyPostService = (TyPostService)ContentHolder.context.getBean("tyPostService", TyPostService.class);
     ContentHolder.jlscService = ContentHolder.context.getBean("jlscService", JLSCService.class);
     ContentHolder.keywordsService = ContentHolder.context.getBean("keywordsService", KeywordsService.class);
     ContentHolder.urlsService = ContentHolder.context.getBean("urlsService", UrlsService.class);
     ContentHolder.configService = ContentHolder.context.getBean("configService", ConfigService.class);
-//    BlackKeyHelper.loadBlackKey();
-//    SpringUtil.getInstance();
+    ContentHolder.configService.restartConfig();
     logger.info("--------------init servlet end-------------");
   }
 }

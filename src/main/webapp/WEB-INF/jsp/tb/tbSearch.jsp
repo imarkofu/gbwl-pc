@@ -18,6 +18,9 @@
 <script type="text/javascript">
 $(function(){
 	searchInit("${sessionScope.apppath}/tieba/search.do");
+	setInterval(function(){
+		$('#dg').datagrid('reload');
+	}, 20000);
 });
 function searchInit(action) {
 	$("#dg").datagrid({

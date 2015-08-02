@@ -28,9 +28,7 @@ public class JPushUtil {
 	private String	jpushMasterSecret;
 	private String	jpushAppKey;
 	private String	jpushAlias;
-	private JPushUtil() {
-		jpushClient = new JPushClient(jpushMasterSecret, jpushAppKey, 3);
-	}
+	private JPushUtil() { }
 	
 	private static class Tools {
 		private static JPushUtil jPushUtil = new JPushUtil();
@@ -42,6 +40,8 @@ public class JPushUtil {
 	
 	public void pushAndroid(String title, String content) {
 		if (isPush) {
+			if (jpushClient == null)
+				init();
 			logger.info("push = title=" + title);
 			PushPayload pushPayload = PushPayload.newBuilder().setPlatform(Platform.android())
 					.setAudience(Audience.alias(jpushAlias))
@@ -59,6 +59,11 @@ public class JPushUtil {
 	            logger.info("Error Code: " + e.getErrorCode());
 	            logger.info("Error Message: " + e.getErrorMessage());
 			}
+		}
+	}
+	private synchronized void init() {
+		if (jpushClient == null) {
+			jpushClient = new JPushClient(jpushMasterSecret, jpushAppKey, 3);
 		}
 	}
 	public void setPush(boolean isPush) {

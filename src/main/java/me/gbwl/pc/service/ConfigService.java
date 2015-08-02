@@ -33,73 +33,82 @@ public class ConfigService extends BaseService<Config, Integer> {
 				try {
 					switch (config.getKeyword()) {
 					case "tiebaRun":	// 1
-						TiebaMain.getInstance().setTiebaRun(Boolean.parseBoolean(config.getValues()));
+						TiebaMain.getInstance().setTiebaRun(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "tiebaThreadCount":	// 2
-						TiebaMain.getInstance().setTiebaThreadCount(Integer.parseInt(config.getValues()));
+						TiebaMain.getInstance().setTiebaThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "tiebaMillisAgo":	// 3
-						TiebaMain.getInstance().setTiebaMillisAgo(Long.parseLong(config.getValues()));
+						TiebaMain.getInstance().setTiebaMillisAgo(Long.parseLong(config.getVal()));
 						break;
 					case "tiebaUrlRun":	// 4
-						TiebaUrlMain.getInstance().setTiebaUrlRun(Boolean.parseBoolean(config.getValues()));
+						TiebaUrlMain.getInstance().setTiebaUrlRun(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "tiebaUrlThreadCount":	// 5
-						TiebaUrlMain.getInstance().setTiebaUrlThreadCount(Integer.parseInt(config.getValues()));
+						TiebaUrlMain.getInstance().setTiebaUrlThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "tiebaUrlMillisAgo":	// 6
-						TiebaUrlMain.getInstance().setTiebaUrlMillisAgo(Long.parseLong(config.getValues()));
+						TiebaUrlMain.getInstance().setTiebaUrlMillisAgo(Long.parseLong(config.getVal()));
 						break;
 					case "tiebaUrlDetailThreadCount":	// 7
-						TiebaUrlMain.getInstance().setTiebaUrlDetailThreadCount(Integer.parseInt(config.getValues()));
+						TiebaUrlMain.getInstance().setTiebaUrlDetailThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "tianyaRun":	// 8
-						TianyaMain.getInstance().setTianyaRun(Boolean.parseBoolean(config.getValues()));
+						TianyaMain.getInstance().setTianyaRun(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "tianyaThreadCount":	// 9
-						TianyaMain.getInstance().setTianyaThreadCount(Integer.parseInt(config.getValues()));
+						TianyaMain.getInstance().setTianyaThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "tianyaMillisAgo":		// 10
-						TianyaMain.getInstance().setTianyaMillisAgo(Integer.parseInt(config.getValues()));
+						TianyaMain.getInstance().setTianyaMillisAgo(Integer.parseInt(config.getVal()));
 						break;
 					case "tianyaDetailThreadCount":
-						TianyaMain.getInstance().setTianyaDetailThreadCount(Integer.parseInt(config.getValues()));
+						TianyaMain.getInstance().setTianyaDetailThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "isJLSCRun":
-						JLSCMain.getInstance().setJLSCRun(Boolean.parseBoolean(config.getValues()));
+						JLSCMain.getInstance().setJLSCRun(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "jlscThreadCount":
-						JLSCMain.getInstance().setJlscThreadCount(Integer.parseInt(config.getValues()));
+						JLSCMain.getInstance().setJlscThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "jlscDetailThreadCount":
-						JLSCMain.getInstance().setJlscDetailThreadCount(Integer.parseInt(config.getValues()));
+						JLSCMain.getInstance().setJlscDetailThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "mainJlscThreadCount":
-						JLSCMain.getInstance().setMainJlscThreadCount(Integer.parseInt(config.getValues()));
+						JLSCMain.getInstance().setMainJlscThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "mainJLSCDetailThreadCount":
-						JLSCMain.getInstance().setMainJLSCDetailThreadCount(Integer.parseInt(config.getValues()));
+						JLSCMain.getInstance().setMainJLSCDetailThreadCount(Integer.parseInt(config.getVal()));
 						break;
 					case "isSendEmail":
-						MailSender.getInstance().setSendEmail(Boolean.parseBoolean(config.getValues()));
+						MailSender.getInstance().setSendEmail(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "isPush":
-						JPushUtil.getInstance().setPush(Boolean.parseBoolean(config.getValues()));
+						JPushUtil.getInstance().setPush(Boolean.parseBoolean(config.getVal()));
 						break;
 					case "jpushMasterSecret":
-						JPushUtil.getInstance().setJpushMasterSecret(config.getValues());
+						JPushUtil.getInstance().setJpushMasterSecret(config.getVal());
 						break;
 					case "jpushAppKey":
-						JPushUtil.getInstance().setJpushAppKey(config.getValues());
+						JPushUtil.getInstance().setJpushAppKey(config.getVal());
 						break;
 					case "jpushAlias":
-						JPushUtil.getInstance().setJpushAlias(config.getValues());
+						JPushUtil.getInstance().setJpushAlias(config.getVal());
 						break;
 					case "displayName":
-						MailSender.getInstance().setDisplayName(config.getValues());
+						MailSender.getInstance().setDisplayName(config.getVal());
 						break;
 					case "toAddress":
-						MailSender.getInstance().setToAddress(config.getValues());
+						MailSender.getInstance().setToAddress(config.getVal());
+						break;
+					case "subject":
+						MailSender.getInstance().setSubject(config.getVal());
+						break;
+					case "emails":
+						MailSender.getInstance().setMail(config.getVal());
+						break;
+					default:
+						logger.warn("Not Found The Key = " + config);
 						break;
 					}
 				} catch (Exception e) {

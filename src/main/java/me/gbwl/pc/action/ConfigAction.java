@@ -12,6 +12,8 @@ import me.gbwl.pc.service.ConfigService;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value="/config")
@@ -24,9 +26,11 @@ public class ConfigAction extends BaseAction<Config, Integer> {
 		this.setBaseService(configService, "config");
 	}
 	
-	
+	@RequestMapping(value="/restartConfig.do",method = RequestMethod.POST)
+	@ResponseBody
 	public Map<String, Object> restartConfig() {
 		Map<String, Object> result = new HashMap<String, Object>();
+		configService.restartConfig();
 		result.put("result", true);
 		return result;
 	}

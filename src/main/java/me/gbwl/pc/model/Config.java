@@ -12,7 +12,7 @@ public class Config {
 
 	private Integer id;
 	private String	keyword;
-	private String	values;
+	private String	val;
 	private String	des;
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -28,11 +28,11 @@ public class Config {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public String getValues() {
-		return values;
+	public String getVal() {
+		return val;
 	}
-	public void setValues(String values) {
-		this.values = values;
+	public void setVal(String val) {
+		this.val = val;
 	}
 	public String getDes() {
 		return des;
@@ -44,7 +44,7 @@ public class Config {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Config [id=").append(id).append(", keyword=")
-				.append(keyword).append(", values=").append(values)
+				.append(keyword).append(", val=").append(val)
 				.append(", des=").append(des).append("]");
 		return builder.toString();
 	}
