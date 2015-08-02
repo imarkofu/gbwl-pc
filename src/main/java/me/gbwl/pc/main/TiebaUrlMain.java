@@ -75,7 +75,15 @@ public class TiebaUrlMain {
 	public void setTiebaUrlMillisAgo(long tiebaUrlMillisAgo) {
 		this.tiebaUrlMillisAgo = tiebaUrlMillisAgo;
 	}
-
+	public void setTiebaUrlRun(boolean tiebaUrlRun) {
+		this.tiebaUrlRun = tiebaUrlRun;
+	}
+	public void setTiebaUrlThreadCount(int tiebaUrlThreadCount) {
+		this.tiebaUrlThreadCount = tiebaUrlThreadCount;
+	}
+	public void setTiebaUrlDetailThreadCount(int tiebaUrlDetailThreadCount) {
+		this.tiebaUrlDetailThreadCount = tiebaUrlDetailThreadCount;
+	}
 	private TiebaUrlMain() {}
 	private static class Tools {
 		private static final TiebaUrlMain tiebaUrlMain = new TiebaUrlMain();

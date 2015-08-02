@@ -25,10 +25,10 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 					tp = ContentHolder.tbPostService.searchOne(tp);
 					if (tp == null) {
 						//爬取详情页面
-						if (ContentHolder.constant.isTieBaDetailRun()) {
+//						if (ContentHolder.constant.isTieBaDetailRun()) {
 //							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
 							TiebaUrlMain.getInstance().addTiebaUrlDetail(topicURLs.get(i));
-						}
+//						}
 					}
 				}
 		}
@@ -41,10 +41,10 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 					tp = (TbPost) ContentHolder.tbPostService.searchOne(tp);
 					if (tp == null) {
 						//爬取详情页面
-						if (ContentHolder.constant.isTieBaDetailRun()) {
+//						if (ContentHolder.constant.isTieBaDetailRun()) {
 //							SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
 							TiebaUrlMain.getInstance().addTiebaUrlDetail(topURLs.get(i));
-						}
+//						}
 					}
 				}
 		}
@@ -58,10 +58,10 @@ public class TiebaUrlPageProcessor implements PageProcessor {
 				tp = (TbPost) ContentHolder.tbPostService.searchOne(tp);
 				if (tp ==  null) {
 					//爬详情页面
-					if (ContentHolder.constant.isTieBaDetailRun()) {
+//					if (ContentHolder.constant.isTieBaDetailRun()) {
 //						SpringUtil.getInstance().addTiebaDetailListUrl("http://tieba.baidu.com/p/" + pid);
 						TiebaUrlMain.getInstance().addTiebaUrlDetail(listURLs.get(i));
-					}
+//					}
 				}
 			}
 		}

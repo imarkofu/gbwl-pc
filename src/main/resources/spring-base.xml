@@ -13,9 +13,7 @@
     http://www.springframework.org/schema/aop/spring-aop-3.0.xsd 
 	http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
-	
-	<bean id="constant" class="me.gbwl.pc.base.Constant"></bean>
-	
+		
 	<context:annotation-config />
 	<mvc:annotation-driven />
 	<!-- 自动扫描包，可以写多个 -->

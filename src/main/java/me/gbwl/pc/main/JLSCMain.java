@@ -20,7 +20,7 @@ import us.codecraft.webmagic.SpiderListener;
 
 public class JLSCMain {
 
-	private boolean isJLSCRun					= false;
+	private boolean isJLSCRun					= true;
 	private int		jlscThreadCount				= 1;
 	private Spider	spiderJLSCList				= null;
 	
@@ -108,6 +108,21 @@ public class JLSCMain {
 					.addPipeline(new BasePipeline());
 			spiderMainJLSCDetailList.start();
 		}
+	}
+	public void setJLSCRun(boolean isJLSCRun) {
+		this.isJLSCRun = isJLSCRun;
+	}
+	public void setJlscThreadCount(int jlscThreadCount) {
+		this.jlscThreadCount = jlscThreadCount;
+	}
+	public void setJlscDetailThreadCount(int jlscDetailThreadCount) {
+		this.jlscDetailThreadCount = jlscDetailThreadCount;
+	}
+	public void setMainJlscThreadCount(int mainJlscThreadCount) {
+		this.mainJlscThreadCount = mainJlscThreadCount;
+	}
+	public void setMainJLSCDetailThreadCount(int mainJLSCDetailThreadCount) {
+		this.mainJLSCDetailThreadCount = mainJLSCDetailThreadCount;
 	}
 	private JLSCMain() {
 		init();

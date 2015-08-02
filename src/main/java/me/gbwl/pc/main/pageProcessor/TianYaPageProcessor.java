@@ -59,7 +59,7 @@ public class TianYaPageProcessor implements PageProcessor {
 //					if (BlackKeyHelper.isBlack(tyPost.getpTitle())) {
 					if (KeywordsUtil.getInstance().isTianyaKeywords(postTitle.get(i))) {
 //						tyPost.setIsMatch(TyPost.TRUE_MATCH);
-						if (!ContentHolder.constant.isTianyaFirst()) {
+//						if (!ContentHolder.constant.isTianyaFirst()) {
 //							MailSender.getInstance().send("来自《" + name + "》的异常邮件", "帖子标题："+ postTitle.get(i) + "<br />帖子链接：http://bbs.tianya.cn/" + url + ".shtml");
 							String sql = "select * from ty_post where pId=?";
 							List<Object> params = new ArrayList<Object>();
@@ -67,12 +67,12 @@ public class TianYaPageProcessor implements PageProcessor {
 							List<TyPost> tyPosts = ContentHolder.tyPostService.search(sql, params);
 							if ((tyPosts == null) || (tyPosts.size() <= 0)) {
 								//拉取详情页面
-								if (ContentHolder.constant.isTianYaDetailRun()) {
+//								if (ContentHolder.constant.isTianYaDetailRun()) {
 //									SpringUtil.getInstance().addTianyaDetailListUrl("http://bbs.tianya.cn/" + url + ".shtml");
 									TianyaMain.getInstance().addTianyaDetailUrls(postURL.get(i));
-								}
+//								}
 							}
-						}
+//						}
 					}
 //					ContentHolder.tyPostService.save(tyPost);
 //				}

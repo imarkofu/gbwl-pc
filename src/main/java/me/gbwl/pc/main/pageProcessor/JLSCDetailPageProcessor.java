@@ -30,7 +30,7 @@ public class JLSCDetailPageProcessor implements PageProcessor {
 				Date date = DateUtil.parser(dateStr, "yyyy-MM-dd HH:mm");
 				Date now = new Date();
 				if (date != null) {
-					if (now.getTime() - date.getTime() <= ContentHolder.constant.getTianyaAgo()) {
+					if (now.getTime() - date.getTime() <= 240000) {
 						String title = page.getHtml().xpath("//title/text()").toString();
 						title = title.substring(0, title.indexOf("—")!=-1?title.indexOf("—"):title.length());
 						JLSC jlsc = new JLSC();
@@ -42,7 +42,7 @@ public class JLSCDetailPageProcessor implements PageProcessor {
 						JPushUtil.getInstance().pushAndroid("来自《纪律审查》的异常帖子", "帖子标题："+ jlsc.getpTitle() + "<br />帖子链接：" + jlsc.getpId() + "<br />发帖时间：" + date);
 						MailSender.getInstance().send("来自《纪律审查》的异常帖子", "帖子标题："+ jlsc.getpTitle() + "<br />帖子链接：" + jlsc.getpId() + "<br />发帖时间：" + date);
 					} else {
-						logger.info((now.getTime() - date.getTime())+">=" + ContentHolder.constant.getTianyaAgo());
+						logger.info((now.getTime() - date.getTime())+">=" +240000);
 					}
 				} else {
 					logger.info("日期抓取错误"+date);

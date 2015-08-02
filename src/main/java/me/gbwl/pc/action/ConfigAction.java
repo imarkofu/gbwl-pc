@@ -1,5 +1,8 @@
 package me.gbwl.pc.action;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,6 +22,13 @@ public class ConfigAction extends BaseAction<Config, Integer> {
 	public void setConfigService(ConfigService configService) {
 		this.configService = configService;
 		this.setBaseService(configService, "config");
+	}
+	
+	
+	public Map<String, Object> restartConfig() {
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("result", true);
+		return result;
 	}
 	
 	@Override

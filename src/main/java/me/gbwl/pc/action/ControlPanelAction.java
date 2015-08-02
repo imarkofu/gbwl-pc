@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import me.gbwl.pc.base.ContentHolder;
 import me.gbwl.pc.main.TiebaMain;
-import me.gbwl.pc.util.SpringUtil;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
@@ -37,8 +36,8 @@ public class ControlPanelAction {
 //		mav.addObject("tianyaSize", SpringUtil.getInstance().getTianYaSize());
 //		mav.addObject("tianyaDetailSize", SpringUtil.getInstance().getTianYaDetailSize());
 //		mav.addObject("jlscSize", SpringUtil.getInstance().getJLSCSize());
-		mav.addObject("sendEmail", ContentHolder.constant.isSendEmail()?1:0);
-		mav.addObject("push", ContentHolder.constant.isPush()?1:0);
+//		mav.addObject("sendEmail", ContentHolder.constant.isSendEmail()?1:0);
+//		mav.addObject("push", ContentHolder.constant.isPush()?1:0);
 		return mav;
 	}
 	
@@ -82,23 +81,23 @@ public class ControlPanelAction {
 		return result;
 	}
 	
-	@RequestMapping(value="/changeSendEmail.do", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> changeSendEmail(HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		ContentHolder.constant.setSendEmail(ContentHolder.constant.isSendEmail()?false:true);
-		result.put("result", true);result.put("msg", "重置成功");
-		return result;
-	}
-	
-	@RequestMapping(value="/changePush.do", method=RequestMethod.POST)
-	@ResponseBody
-	public Map<String, Object> changePush(HttpServletRequest request) {
-		Map<String, Object> result = new HashMap<String, Object>();
-		ContentHolder.constant.setPush(ContentHolder.constant.isPush()?false:true);
-		result.put("result", true);result.put("msg", "重置成功");
-		return result;
-	}
+//	@RequestMapping(value="/changeSendEmail.do", method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> changeSendEmail(HttpServletRequest request) {
+//		Map<String, Object> result = new HashMap<String, Object>();
+//		ContentHolder.constant.setSendEmail(ContentHolder.constant.isSendEmail()?false:true);
+//		result.put("result", true);result.put("msg", "重置成功");
+//		return result;
+//	}
+//	
+//	@RequestMapping(value="/changePush.do", method=RequestMethod.POST)
+//	@ResponseBody
+//	public Map<String, Object> changePush(HttpServletRequest request) {
+//		Map<String, Object> result = new HashMap<String, Object>();
+//		ContentHolder.constant.setPush(ContentHolder.constant.isPush()?false:true);
+//		result.put("result", true);result.put("msg", "重置成功");
+//		return result;
+//	}
 	
 	@RequestMapping(value="/restartTieBa.do", method=RequestMethod.POST)
 	@ResponseBody

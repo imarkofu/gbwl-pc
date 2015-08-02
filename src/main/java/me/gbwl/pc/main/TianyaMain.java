@@ -87,6 +87,14 @@ public class TianyaMain {
 	public void setTianyaMillisAgo(long tianyaMillisAgo) {
 		this.tianyaMillisAgo = tianyaMillisAgo;
 	}
+	public boolean isTianyaRun() {
+		return tianyaRun;
+	}
+
+	public void setTianyaRun(boolean tianyaRun) {
+		this.tianyaRun = tianyaRun;
+	}
+
 	private TianyaMain() {}
 	private static class Tools {
 		private static final TianyaMain tianyaMain = new TianyaMain();
